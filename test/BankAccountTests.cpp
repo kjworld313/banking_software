@@ -17,12 +17,12 @@ BOOST_AUTO_TEST_CASE(constructor1_test) {
     BankAccount* bank_account = nullptr;
     
     // act
-    bank_account = new CheckingAccount("John", "Doe", 0.00);
+    bank_account = new CheckingAccount("John", "Doe", 10.00);
 
     // assert
     BOOST_CHECK_EQUAL(bank_account->getFirstName(), "John");
     BOOST_CHECK_EQUAL(bank_account->getLastName(), "Doe");
-    BOOST_CHECK_EQUAL(bank_account->getBalance(), 0.00);
+    BOOST_CHECK_EQUAL(bank_account->getBalance(), 10.00);
 }
 
 /**
@@ -50,4 +50,37 @@ BOOST_AUTO_TEST_CASE(set_first_test) {
     // act and assert
     BOOST_CHECK_EQUAL(account->getFirstName(), "Jane");
 }
+
+/**
+ * Lines covered : 37, 38, 39, 40
+ * Branches covered : 37T, 38T
+ */
+// test on withdrawal function with balance equal to a nonzero amount
+BOOST_AUTO_TEST_CASE(nonzero_true_withdrawal_test) { // true return case
+    // arrange
+    CheckingAccount* account = new CheckingAccount("Jane", "Doe", 10.00);
+
+    // act 
+    account->withdrawal(10.00);
+
+    // assert
+    BOOST_CHECK_EQUAL(account->getBalance(), 0.00); // balance should be 0 (successful)
+}
+
+/**
+ * Lines covered : 37, 38, 43, 44
+ * Branches covered : 37T, 38F, 42T
+ */
+// test on withdrawal function with empty balance and nonzero amount
+BOOST_AUTO_TEST_CASE(nonzero_false_withdrawal_test) { // false return case
+    // arrange
+    CheckingAccount* account = new CheckingAccount("Jane", "Doe");
+
+    // act 
+    account->withdrawal(10.00);
+
+    // assert
+    BOOST_CHECK_EQUAL(account->getBalance(), 0.00); // balance should still be 0
+}
+
 BOOST_AUTO_TEST_SUITE_END()
