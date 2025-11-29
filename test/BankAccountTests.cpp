@@ -83,4 +83,20 @@ BOOST_AUTO_TEST_CASE(nonzero_false_withdrawal_test) { // false return case
     BOOST_CHECK_EQUAL(account->getBalance(), 0.00); // balance should still be 0
 }
 
+/**
+ * Lines covered : 37, 47, 48, 49
+ * Branches covered : 37F, 47T
+ */
+// test on withdrawal function with zero amount
+BOOST_AUTO_TEST_CASE(zero_amount_withdrawal_test) { // false return case
+    // arrange
+    CheckingAccount* account = new CheckingAccount("Jane", "Doe", 10.00);
+
+    // act 
+    account->withdrawal(0.00);
+
+    // assert
+    BOOST_CHECK_EQUAL(account->getBalance(), 10.00); // balance should still be 10
+}
+
 BOOST_AUTO_TEST_SUITE_END()
