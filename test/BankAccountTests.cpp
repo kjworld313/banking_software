@@ -2,7 +2,6 @@
 #define BOOST_TEST_MAIN
 
 #include <boost/test/unit_test.hpp>
-#include "BankAccount.hpp"
 #include "CheckingAccount.hpp"
 
 BOOST_AUTO_TEST_SUITE(bank_account_suite, * boost::unit_test::timeout(10))
