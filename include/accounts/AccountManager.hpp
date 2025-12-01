@@ -3,6 +3,12 @@
 
 class AccountManager{
 
+    public:
+
+    void makeWithdrawal(std::string username, double amount);
+    
+
+    
 };
 
 #endif
