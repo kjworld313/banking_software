@@ -10,3 +10,13 @@ void AccountManager::makeDeposit(std::string username, double amount){
         account->deposit(amount);
     }
 }
+
+void AccountManager::makeWithdrawal(std::string username, double amount){
+    if(amount<0){
+        //throw exception
+    }
+    else{
+        BankAccount* account = map_name[username];
+        account->withdrawal(amount);
+    }
+}
