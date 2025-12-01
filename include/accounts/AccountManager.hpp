@@ -3,6 +3,9 @@
 
 class AccountManager{
 
+    public:
+
+    void makeDeposit(std::string username, double amount);
 };
 
 #endif
