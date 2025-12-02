@@ -7,7 +7,7 @@ BOOST_AUTO_TEST_SUITE(savings_account_suite, * boost::unit_test::timeout(10))
 
 /*
 
- * Lines covered: 3, 4
+ * Lines covered: 3, 4, 20, 21
  * branches covered: N/A
 
 */
@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(constructorTest2){
 }
 
 /*
- * Lines Covered: 7, 8
+ * Lines Covered: 7, 8, 20, 21
  * Branches Covered: N/A
 */
 BOOST_AUTO_TEST_CASE(constructorTest2){
@@ -44,6 +44,31 @@ BOOST_AUTO_TEST_CASE(accrueInterest_test){
 
     BOOST_CHECK_CLOSE(acc.getBalance(), 110.0);
 }
+
+/*
+ * Lines Tested: 16, 17
+ * branches covered: N/A
+*/
+BOOST_AUTO_TEST_CASE(toStringTest){
+    SavingsAccount acc = new SavingsAccount("Lucy","Blaney", 100.0, 0.1);
+
+    BOOST_CHECK_EQUAL(acc.toString(), "Savings Account Balance $100.0, Interest Rate: 0.1");
+
+}
+
+
+/*
+ * Lines Tested: 24, 25
+ * Branches tested: N/A
+*/
+BOOST_AUTO_TEST_CASE(setInterestTest){
+    SavingsAccount acc = new SavingsAccount("Lucy","Blaney", 100.0, 0.1);
+
+    acc.setInterestRate(50);
+
+    BOOST_CHECK_EQUAL(acc.getInterestRate(), 50);
+}
+
 
 
 
