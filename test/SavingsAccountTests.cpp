@@ -33,10 +33,18 @@ BOOST_AUTO_TEST_CASE(constructorTest2){
     BOOST_CHECK_EQUAL(acc.getBalance(), 0.0);
 }
 
+/*
+ * Lines Tested: 11, 12, 13
+ * Branches Tested: N/A
+*/
 BOOST_AUTO_TEST_CASE(accrueInterest_test){
     SavingsAccount acc = new SavingsAccount("Lucy","Blaney", 100.0, 0.1);
 
-    BOOST_CHECK_CLOSE(acc.accrueInterest(), 101.0);
+    acc.accrueInterest();
+
+    BOOST_CHECK_CLOSE(acc.getBalance(), 110.0);
 }
+
+
 
 BOOST_AUTO_TEST_SUITE_END()
