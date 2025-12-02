@@ -4,6 +4,9 @@
 #include <string>
 #include <map>
 
+#include "CheckingAccount.hpp"
+#include "SavingsAccount.hpp"
+
 class AccountManager{
     private: 
     int numAccounts;
@@ -19,6 +22,8 @@ class AccountManager{
      void makeDeposit(std::string username, double amount);
      void makeWithdrawal(std::string username, double amount);
 
+    void addInterest();
+    void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
 };
 
