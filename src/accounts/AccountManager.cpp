@@ -1,4 +1,5 @@
 #include "AccountManager.hpp"
+#include <iostream>
 
 
     void AccountManager::makeDeposit(std::string username, double amount){
@@ -21,6 +22,41 @@
         }
     }
 
+    void AccountManager::deleteAccount(std::string username) {
+        // check if username exists
+        if (accounts.count(username) == 0) {
+            std::cout << "[ERROR]: The account does not exist.\n";
+            return;
+        }
+    
+        // delete the dynamic account object
+        delete accounts[username];
+    
+        // remove from the map
+        accounts.erase(username);
+    
+        // update the count
+        numAccounts = numAccounts - 1;
+    
+        std::cout << "[STATUS]: The account was deleted.\n";
+    }
+    
+    void AccountManager::displayAccount(std::string username) {
+        // check if the username exists
+        if (accounts.count(username) == 0) {
+            std::cout << "[ERROR]: The account does not exist.\n";
+            return;
+        }
+
+        // need to add something here to get the display to work
+    
+    }
+    
+    // numAccounts
+    int AccountManager::getNumAccounts() const {
+        return numAccounts;
+    }
+    
     // function that adds interest to all savings accounts and returns success of operation
     void AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts

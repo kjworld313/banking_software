@@ -22,6 +22,10 @@ class AccountManager{
      void makeDeposit(std::string username, double amount);
      void makeWithdrawal(std::string username, double amount);
 
+     void deleteAccount(std::string username);
+     void displayAccount(std::string username);
+     int getNumAccounts() const;
+
     void addInterest();
     void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
