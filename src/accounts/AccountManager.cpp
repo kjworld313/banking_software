@@ -22,7 +22,7 @@
     }
 
     // function that adds interest to all savings accounts and returns success of operation
-    bool AccountManager::addInterest() {
+    void AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts
         for (auto iterator = accounts.begin(); iterator != accounts.end(); iterator++) {
             // dynamically cast each account in map to determine if current account is a savings account
@@ -36,7 +36,7 @@
     }
 
     // function that attempts to write a check from writer to receiver
-    bool AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
+    void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
         // check if the checkWriter account exists in the system
         if(accounts.find(checkWriter) != accounts.end()) {
             // get check writer account from map
