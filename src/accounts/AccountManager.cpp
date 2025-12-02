@@ -1,13 +1,14 @@
 #include "AccountManager.hpp"
 
-
+    //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        if (it != accounts.end()){
+            it->second.deposit(amount);
         }
         else{
-            BankAccount* account = accounts[username];
-            account->deposit(amount);
+            std::cout<<"Username does not match any existing accounts."<<std::endl;
         }
     }
 
