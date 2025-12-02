@@ -2,8 +2,11 @@
 
     //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
+        //Check if input is valid, throw error if it isn't?
+        
         auto it = accounts.find(username);
 
+        //check if account exists, if it does make deposit, if it doesn't print error
         if (it != accounts.end()){
             it->second.deposit(amount);
         }
