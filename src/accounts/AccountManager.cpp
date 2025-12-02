@@ -1,6 +1,27 @@
 #include "AccountManager.hpp"
 
-    // function that adds interest to all savings accounts
+
+    void AccountManager::makeDeposit(std::string username, double amount){
+        if(amount<0){
+            //throw exception
+        }
+        else{
+            BankAccount* account = accounts[username];
+            account->deposit(amount);
+        }
+    }
+
+    void AccountManager::makeWithdrawal(std::string username, double amount){
+        if(amount<0){
+            //throw exception
+        }
+        else{
+            BankAccount* account = accounts[username];
+            account->withdrawal(amount);
+        }
+    }
+
+    // function that adds interest to all savings accounts and returns success of operation
     bool AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts
         for (auto iterator = accounts.begin(); iterator != accounts.end(); iterator++) {
