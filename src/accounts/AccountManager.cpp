@@ -10,7 +10,7 @@
         }
     
         else{
-            std::cout<<"Username does not match any existing accounts."<<std::endl;
+            throw std::out_of_range("Username does not exist.");
         }
     }
 
@@ -23,7 +23,7 @@
         }
     
         else{
-            std::cout<<"Username does not match any existing accounts."<<std::endl;
+            throw std::out_of_range("Username does not exist.");
         }
     }
 
