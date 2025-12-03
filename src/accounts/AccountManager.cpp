@@ -27,7 +27,7 @@
         }
     }
 
-    // function that adds interest to all savings accounts and returns success of operation
+    // function that accrues interest on all savings accounts in banking software
     void AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts
         for (auto iterator = accounts.begin(); iterator != accounts.end(); iterator++) {
@@ -44,7 +44,7 @@
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
         // check if the checkWriter account exists in the system
-        if(accounts.find(checkWriter) != accounts.end()) {
+        if(accounts.count(username) != 0) {
             // get check writer account from map
             CheckingAccount* account = accounts[checkWriter];
             // check if checkReceiver account exists in the system
@@ -52,10 +52,12 @@
                 // get check receiver account from map and write check
                 BankAccount* recipient = accounts[checkReceiver];
                 account->writeCheck(recipient, amount);
-            } else { // checkReceiver account does not exist in system throw exception
-                throw std::invalid_argument("Receiving Account does not exist in system.");
+            } 
+            else { // checkReceiver account does not exist in system, throw exception
+                throw std::invalid_argument("Receiving Account " + checkReceiver + " does not exist in system.");
             }
-        } else { // checkWriter account does not exist in system, throw exception
-            throw std::invalid_argument("Checking Account does not exist in system.");
+        } 
+        else { // checkWriter account does not exist in system, throw exception
+            throw std::invalid_argument("Checking Account " + checkWriter + " does not exist in system.");
         }
     }
