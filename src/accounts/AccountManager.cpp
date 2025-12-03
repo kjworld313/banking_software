@@ -2,26 +2,28 @@
 
     //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
-        //Check if input is valid, throw error if it isn't?
-        
         auto it = accounts.find(username);
 
         //check if account exists, if it does make deposit, if it doesn't print error
         if (it != accounts.end()){
             it->second.deposit(amount);
         }
+    
         else{
             std::cout<<"Username does not match any existing accounts."<<std::endl;
         }
     }
 
     void AccountManager::makeWithdrawal(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        //check if account exists, if it does make deposit, if it doesn't print error
+        if (it != accounts.end()){
+            it->second.withdrawal(amount);
         }
+    
         else{
-            BankAccount* account = accounts[username];
-            account->withdrawal(amount);
+            std::cout<<"Username does not match any existing accounts."<<std::endl;
         }
     }
 
