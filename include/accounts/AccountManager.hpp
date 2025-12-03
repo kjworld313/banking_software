@@ -9,8 +9,8 @@
 
 class AccountManager{
     private: 
-    int numAccounts;
-    std::map<std::string, BankAccount*> accounts;
+      int numAccounts;
+      std::map<std::string, BankAccount*> accounts;
 
     public:
       AccountManager();

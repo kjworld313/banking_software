@@ -2,24 +2,30 @@
 #include <iostream>
 #include <stdexcept>
 
-
+    //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        //check if account exists, if it does make deposit, if it doesn't print error
+        if (it != accounts.end()){
+            it->second.deposit(amount);
         }
+    
         else{
-            BankAccount* account = accounts[username];
-            account->deposit(amount);
+            throw std::out_of_range("Username does not exist.");
         }
     }
 
     void AccountManager::makeWithdrawal(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        //check if account exists, if it does make deposit, if it doesn't print error
+        if (it != accounts.end()){
+            it->second.withdrawal(amount);
         }
+    
         else{
-            BankAccount* account = accounts[username];
-            account->withdrawal(amount);
+            throw std::out_of_range("Username does not exist.");
         }
     }
     void AccountManager::deleteAccount(std::string username) {
@@ -75,7 +81,7 @@
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
         // check if the checkWriter account exists in the system
-        if(accounts.find(checkWriter) != accounts.end()) {
+        if(accounts.count(username) != 0) {
             // get check writer account from map
             CheckingAccount* account = accounts[checkWriter];
             // check if checkReceiver account exists in the system
@@ -83,10 +89,12 @@
                 // get check receiver account from map and write check
                 BankAccount* recipient = accounts[checkReceiver];
                 account->writeCheck(recipient, amount);
-            } else { // checkReceiver account does not exist in system throw exception
-                throw std::invalid_argument("Receiving Account does not exist in system.");
+            } 
+            else { // checkReceiver account does not exist in system, throw exception
+                throw std::invalid_argument("Receiving Account " + checkReceiver + " does not exist in system.");
             }
-        } else { // checkWriter account does not exist in system, throw exception
-            throw std::invalid_argument("Checking Account does not exist in system.");
+        } 
+        else { // checkWriter account does not exist in system, throw exception
+            throw std::invalid_argument("Checking Account " + checkWriter + " does not exist in system.");
         }
     }
