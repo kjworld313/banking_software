@@ -1,6 +1,16 @@
 #include "Utils.hpp"
 #include <iostream>
 
+// function that prints a status message
+void statusMessage(const std::string status) {
+    std::cout << "[STATUS]: " + status << std::endl;
+}
+
+// function that prints an error message
+void errorMessage(const std::string error) {
+    std::cout << "[ERROR]: " + error << std::endl;
+}
+
 std::string getString(const std::string &prompt){
     std::cout << prompt;
     std::string input;
@@ -14,7 +24,7 @@ BankAccount* make_account(){
     std::string first = getString("Enter the first name ");
     std::string last = getString("Enter the last name ");
 
-    std::string choice = getString("Would you like tomake a savings (1) or checking (2) account: ");
+    std::string choice = getString("Would you like to make a savings (1) or checking (2) account: ");
 
     if(choice == "1"){
         std::string interest_rate_string = getString("Enter the interest rate: ");
