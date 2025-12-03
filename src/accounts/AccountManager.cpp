@@ -46,7 +46,7 @@
         std::cout << "[STATUS]: The account was deleted.\n";
     }
     
-    void AccountManager::displayAccount(std::string username) {
+    std::string AccountManager::displayAccount(std::string username) {
         // check if the username exists
         if (accounts.count(username) == 0) {
             throw std::invalid_argument("The account does not exist.");
