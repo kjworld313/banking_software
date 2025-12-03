@@ -44,7 +44,7 @@
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
         // check if the checkWriter account exists in the system
-        if(accounts.count(username) == 0) {
+        if(accounts.count(username) != 0) {
             // get check writer account from map
             CheckingAccount* account = accounts[checkWriter];
             // check if checkReceiver account exists in the system
