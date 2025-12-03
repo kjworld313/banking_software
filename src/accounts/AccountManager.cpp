@@ -1,23 +1,29 @@
 #include "AccountManager.hpp"
 
-
+    //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        //check if account exists, if it does make deposit, if it doesn't print error
+        if (it != accounts.end()){
+            it->second.deposit(amount);
         }
+    
         else{
-            BankAccount* account = accounts[username];
-            account->deposit(amount);
+            throw std::out_of_range("Username does not exist.");
         }
     }
 
     void AccountManager::makeWithdrawal(std::string username, double amount){
-        if(amount<0){
-            //throw exception
+        auto it = accounts.find(username);
+
+        //check if account exists, if it does make deposit, if it doesn't print error
+        if (it != accounts.end()){
+            it->second.withdrawal(amount);
         }
+    
         else{
-            BankAccount* account = accounts[username];
-            account->withdrawal(amount);
+            throw std::out_of_range("Username does not exist.");
         }
     }
 
