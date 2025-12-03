@@ -46,7 +46,7 @@
         std::cout << "[STATUS]: The account was deleted.\n";
     }
     
-    void AccountManager::displayAccount(std::string username) {
+    std::string AccountManager::displayAccount(std::string username) {
         // check if the username exists
         if (accounts.count(username) == 0) {
             throw std::invalid_argument("The account does not exist.");
@@ -54,9 +54,8 @@
     
         BankAccount* acc = accounts[username];
 
-        std::cout << "First Name: " << acc->getFirstName() << "\n";
-        std::cout << "Last Name: "  << acc->getLastName() << "\n";
-        std::cout << "Balance: $"   << acc->getBalance()  << "\n";
+        // return account as string
+        return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + "\nBalance: $" + acc->getBalance() + "\n";
     }
         
     // numAccounts
