@@ -1,5 +1,6 @@
 #include "AccountManager.hpp"
 #include <iostream>
+#include <stdexcept>
 
 
     void AccountManager::makeDeposit(std::string username, double amount){
@@ -21,12 +22,10 @@
             account->withdrawal(amount);
         }
     }
-
     void AccountManager::deleteAccount(std::string username) {
         // check if username exists
         if (accounts.count(username) == 0) {
-            std::cout << "[ERROR]: The account does not exist.\n";
-            return;
+            throw std::invalid_argument("The account does not exist.");
         }
     
         // delete the dynamic account object
@@ -44,14 +43,16 @@
     void AccountManager::displayAccount(std::string username) {
         // check if the username exists
         if (accounts.count(username) == 0) {
-            std::cout << "[ERROR]: The account does not exist.\n";
-            return;
+            throw std::invalid_argument("The account does not exist.");
         }
+    
+        BankAccount* acc = accounts[username];
 
-        // need to add something here to get the display to work
-    
+        std::cout << "First Name: " << acc->getFirstName() << "\n";
+        std::cout << "Last Name: "  << acc->getLastName() << "\n";
+        std::cout << "Balance: $"   << acc->getBalance()  << "\n";
     }
-    
+        
     // numAccounts
     int AccountManager::getNumAccounts() const {
         return numAccounts;
