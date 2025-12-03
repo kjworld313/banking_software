@@ -1,4 +1,6 @@
 #include "AccountManager.hpp"
+#include <iostream>
+#include <stdexcept>
 
     //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
@@ -26,8 +28,43 @@
             throw std::out_of_range("Username does not exist.");
         }
     }
+    void AccountManager::deleteAccount(std::string username) {
+        // check if username exists
+        if (accounts.count(username) == 0) {
+            throw std::invalid_argument("The account does not exist.");
+        }
+    
+        // delete the dynamic account object
+        delete accounts[username];
+    
+        // remove from the map
+        accounts.erase(username);
+    
+        // update the count
+        numAccounts = numAccounts - 1;
+    
+        std::cout << "[STATUS]: The account was deleted.\n";
+    }
+    
+    void AccountManager::displayAccount(std::string username) {
+        // check if the username exists
+        if (accounts.count(username) == 0) {
+            throw std::invalid_argument("The account does not exist.");
+        }
+    
+        BankAccount* acc = accounts[username];
 
-    // function that accrues interest on all savings accounts in banking software
+        std::cout << "First Name: " << acc->getFirstName() << "\n";
+        std::cout << "Last Name: "  << acc->getLastName() << "\n";
+        std::cout << "Balance: $"   << acc->getBalance()  << "\n";
+    }
+        
+    // numAccounts
+    int AccountManager::getNumAccounts() const {
+        return numAccounts;
+    }
+    
+    // function that adds interest to all savings accounts and returns success of operation
     void AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts
         for (auto iterator = accounts.begin(); iterator != accounts.end(); iterator++) {

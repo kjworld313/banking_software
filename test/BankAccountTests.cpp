@@ -98,4 +98,43 @@ BOOST_AUTO_TEST_CASE(zero_amount_withdrawal_test) { // false return case
     BOOST_CHECK_EQUAL(account->getBalance(), 10.00); // balance should still be 10
 }
 
+
+/**
+ * Lines covered: 53, 54, 55, 56
+ * Branches covered: 54T
+ */
+BOOST_AUTO_TEST_CASE(deposit_positive_test) {
+    CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);
+
+    account->deposit(5.00); // deposit positive amount
+
+    BOOST_CHECK_EQUAL(account->getBalance(), 15.00);
+}
+
+/**
+ * Lines covered: 53, 54, 58, 59, 60
+ * Branches covered: 54F, 58T
+ */
+BOOST_AUTO_TEST_CASE(deposit_zero_test) {
+    CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);
+
+    account->deposit(0.00); // deposit zero (invalid)
+
+    BOOST_CHECK_EQUAL(account->getBalance(), 10.00); // balance should not change
+}
+
+/**
+ * Lines covered: 53, 54, 58, 59, 60
+ * Branches covered: 54F, 58T
+ */
+BOOST_AUTO_TEST_CASE(deposit_negative_test) {
+    CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);
+
+    account->deposit(-5.00); // deposit negative (invalid)
+
+    BOOST_CHECK_EQUAL(account->getBalance(), 10.00); // balance should not change
+}
+
+
+
 BOOST_AUTO_TEST_SUITE_END()
