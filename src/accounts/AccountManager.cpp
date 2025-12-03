@@ -54,9 +54,8 @@
     
         BankAccount* acc = accounts[username];
 
-        std::cout << "First Name: " << acc->getFirstName() << "\n";
-        std::cout << "Last Name: "  << acc->getLastName() << "\n";
-        std::cout << "Balance: $"   << acc->getBalance()  << "\n";
+        // return account as string
+        return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + "\nBalance: $" + acc->getBalance() + "\n";
     }
         
     // numAccounts
