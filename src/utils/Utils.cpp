@@ -18,7 +18,7 @@ std::string getString(const std::string &prompt){
     return input;
 }
 
-BankAccount* make_account(){
+BankAccount* make_account() {
     BankAccount *acct = nullptr;
 
     std::string first = getString("Enter the first name ");
