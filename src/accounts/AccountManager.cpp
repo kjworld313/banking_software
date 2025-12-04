@@ -1,6 +1,25 @@
 #include "AccountManager.hpp"
 #include <iostream>
 #include <stdexcept>
+#include "../utils/Utils.hpp"
+
+//delete this line 
+//check if username already exists
+void AccountManager::addAccount(std::string username){
+    if (accounts.find(username) != accounts.end()){
+        throw std::invalid_argument("Username already exists.");
+    }
+
+    BankAccount* accs = make_account();
+
+    if(accs == nullptr){
+        throw std::runtime_error("Account creation failed.");
+    }
+    accounts[username] = accs;
+    numAccounts++;
+
+    std::cout<<"Account successfully created for user: " << username << std::endl;
+}
 
     //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
@@ -57,6 +76,8 @@
         // return account as string
         return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + "\nBalance: $" + acc->getBalance() + "\n";
     }
+
+
         
     // numAccounts
     int AccountManager::getNumAccounts() const {
@@ -76,6 +97,7 @@
             }
         }
     }
+
 
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
@@ -97,3 +119,5 @@
             throw std::invalid_argument("Checking Account " + checkWriter + " does not exist in system.");
         }
     }
+
+
