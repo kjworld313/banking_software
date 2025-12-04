@@ -4,10 +4,13 @@
 #include <string>
 #include <map>
 
+#include "CheckingAccount.hpp"
+#include "SavingsAccount.hpp"
+
 class AccountManager{
     private: 
-    int numAccounts;
-    std::map<std::string, BankAccount*> accounts;
+      int numAccounts;
+      std::map<std::string, BankAccount*> accounts;
 
     public:
       AccountManager();
@@ -19,6 +22,12 @@ class AccountManager{
      void makeDeposit(std::string username, double amount);
      void makeWithdrawal(std::string username, double amount);
 
+     void deleteAccount(std::string username);
+     void displayAccount(std::string username);
+     int getNumAccounts() const;
+
+    void addInterest();
+    void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
 };
 
