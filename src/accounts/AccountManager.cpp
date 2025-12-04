@@ -73,10 +73,9 @@ void AccountManager::addAccount(std::string username){
     
         BankAccount* acc = accounts[username];
 
-        std::cout << "First Name: " << acc->getFirstName() << "\n";
-        std::cout << "Last Name: "  << acc->getLastName() << "\n";
-        std::cout << "Balance: $"   << acc->getBalance()  << "\n";
+        return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + "\nBalance: $" + acc->getBalance() + "\n";
     }
+
         
     // numAccounts
     int AccountManager::getNumAccounts() const {
@@ -96,6 +95,7 @@ void AccountManager::addAccount(std::string username){
             }
         }
     }
+
 
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
@@ -117,4 +117,5 @@ void AccountManager::addAccount(std::string username){
             throw std::invalid_argument("Checking Account " + checkWriter + " does not exist in system.");
         }
     }
+
 
