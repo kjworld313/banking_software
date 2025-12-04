@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include "../utils/Utils.hpp"
 
-
+//delete this line 
 //check if username already exists
 void AccountManager::addAccount(std::string username){
     if accounts.find(username) != accounts.end()){
