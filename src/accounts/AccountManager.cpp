@@ -6,7 +6,7 @@
 //delete this line 
 //check if username already exists
 void AccountManager::addAccount(std::string username){
-    if accounts.find(username) != accounts.end()){
+    if (accounts.find(username) != accounts.end()){
         throw std::invalid_argument("Username already exists.");
     }
 
