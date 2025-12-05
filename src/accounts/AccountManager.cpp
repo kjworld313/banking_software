@@ -3,23 +3,23 @@
 #include <stdexcept>
 #include "../utils/Utils.hpp"
 
-//delete this line 
-//check if username already exists
-void AccountManager::addAccount(std::string username){
-    if (accounts.find(username) != accounts.end()){
-        throw std::invalid_argument("Username already exists.");
+    //delete this line 
+    //check if username already exists
+    void AccountManager::addAccount(std::string username){
+        if (accounts.find(username) != accounts.end()){
+            throw std::invalid_argument("Username already exists.");
+        }
+
+        BankAccount* accs = make_account();
+
+        if(accs == nullptr){
+            throw std::runtime_error("Account creation failed.");
+        }
+        accounts[username] = accs;
+        numAccounts++;
+
+        std::cout<<"Account successfully created for user: " << username << std::endl;
     }
-
-    BankAccount* accs = make_account();
-
-    if(accs == nullptr){
-        throw std::runtime_error("Account creation failed.");
-    }
-    accounts[username] = accs;
-    numAccounts++;
-
-    std::cout<<"Account successfully created for user: " << username << std::endl;
-}
 
     //function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
@@ -27,7 +27,7 @@ void AccountManager::addAccount(std::string username){
 
         //check if account exists, if it does make deposit, if it doesn't print error
         if (it != accounts.end()){
-            it->second.deposit(amount);
+            (it->second)->deposit(amount);
         }
     
         else{
@@ -40,7 +40,7 @@ void AccountManager::addAccount(std::string username){
 
         //check if account exists, if it does make deposit, if it doesn't print error
         if (it != accounts.end()){
-            it->second.withdrawal(amount);
+            (it->second)->withdrawal(amount);
         }
     
         else{
@@ -74,10 +74,9 @@ void AccountManager::addAccount(std::string username){
         BankAccount* acc = accounts[username];
 
         // return account as string
-        return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + "\nBalance: $" + acc->getBalance() + "\n";
+        return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + 
+        "\nBalance: $" + std::to_string(acc->getBalance()) + "\n";
     }
-
-
         
     // numAccounts
     int AccountManager::getNumAccounts() const {
@@ -102,15 +101,19 @@ void AccountManager::addAccount(std::string username){
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
         // check if the checkWriter account exists in the system
-        if(accounts.count(username) != 0) {
-            // get check writer account from map
-            CheckingAccount* account = accounts[checkWriter];
-            // check if checkReceiver account exists in the system
-            if (accounts.find(checkReceiver) != accounts.end()) {
+        if(accounts.count(checkWriter) != 0) {
+            // dynamically cast account to check if checkWriter is a checking account
+            CheckingAccount* account = dynamic_cast<CheckingAccount*>(accounts[checkWriter]); // second is the bank account 
+
+            // check if checkWriter is a checking account and checkReceiver account exists in system
+            if (account && accounts.count(checkReceiver) != 0) {
                 // get check receiver account from map and write check
                 BankAccount* recipient = accounts[checkReceiver];
-                account->writeCheck(recipient, amount);
+                account->writeCheck(*recipient, amount);
             } 
+            else if (!account) { // account is not a checking account
+                throw std::invalid_argument("Bank Account " + checkWriter + " is not a Checking Account.");
+            }
             else { // checkReceiver account does not exist in system, throw exception
                 throw std::invalid_argument("Receiving Account " + checkReceiver + " does not exist in system.");
             }

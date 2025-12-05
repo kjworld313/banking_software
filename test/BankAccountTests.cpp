@@ -7,8 +7,8 @@
 BOOST_AUTO_TEST_SUITE(bank_account_suite, * boost::unit_test::timeout(10))
 
 /**
- * Lines covered : 5, 6, 7
- * Branches covered : N/A
+ * Lines Covered: 5, 6, 7
+ * Branches Covered: N/A
  */
 // test on parametrized constructor that sets all private data members
 BOOST_AUTO_TEST_CASE(constructor1_test) {
@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_CASE(constructor1_test) {
 }
 
 /**
- * Lines covered : 17
- * Branches covered : N/A
+ * Lines Covered: 17
+ * Branches Covered: N/A
  */
 // test on balance getter
 BOOST_AUTO_TEST_CASE(balance_test) {
@@ -38,8 +38,8 @@ BOOST_AUTO_TEST_CASE(balance_test) {
 }
 
 /**
- * Lines covered : 29
- * Branches covered : N/A
+ * Lines Covered: 29
+ * Branches Covered: N/A
  */
 // test on first name setter
 BOOST_AUTO_TEST_CASE(set_first_test) {
@@ -51,8 +51,8 @@ BOOST_AUTO_TEST_CASE(set_first_test) {
 }
 
 /**
- * Lines covered : 37, 38, 39, 40
- * Branches covered : 37T, 38T
+ * Lines Covered: 37, 38, 39, 40
+ * Branches Covered: 37T, 38T
  */
 // test on withdrawal function with balance equal to a nonzero amount
 BOOST_AUTO_TEST_CASE(nonzero_true_withdrawal_test) { // true return case
@@ -67,8 +67,8 @@ BOOST_AUTO_TEST_CASE(nonzero_true_withdrawal_test) { // true return case
 }
 
 /**
- * Lines covered : 37, 38, 43, 44
- * Branches covered : 37T, 38F, 42T
+ * Lines Covered: 37, 38, 43, 44
+ * Branches Covered: 37T, 38F, 42T
  */
 // test on withdrawal function with empty balance and nonzero amount
 BOOST_AUTO_TEST_CASE(nonzero_false_withdrawal_test) { // false return case
@@ -83,8 +83,8 @@ BOOST_AUTO_TEST_CASE(nonzero_false_withdrawal_test) { // false return case
 }
 
 /**
- * Lines covered : 37, 47, 48, 49
- * Branches covered : 37F, 47T
+ * Lines Covered: 37, 47, 48, 49
+ * Branches Covered: 37F, 47T
  */
 // test on withdrawal function with zero amount
 BOOST_AUTO_TEST_CASE(zero_amount_withdrawal_test) { // false return case
@@ -100,8 +100,8 @@ BOOST_AUTO_TEST_CASE(zero_amount_withdrawal_test) { // false return case
 
 
 /**
- * Lines covered: 53, 54, 55, 56
- * Branches covered: 54T
+ * Lines Covered: 53, 54, 55, 56
+ * Branches Covered: 54T
  */
 BOOST_AUTO_TEST_CASE(deposit_positive_test) {
     CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);
@@ -112,8 +112,8 @@ BOOST_AUTO_TEST_CASE(deposit_positive_test) {
 }
 
 /**
- * Lines covered: 53, 54, 58, 59, 60
- * Branches covered: 54F, 58T
+ * Lines Covered: 53, 54, 58, 59, 60
+ * Branches Covered: 54F, 58T
  */
 BOOST_AUTO_TEST_CASE(deposit_zero_test) {
     CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);
@@ -124,8 +124,8 @@ BOOST_AUTO_TEST_CASE(deposit_zero_test) {
 }
 
 /**
- * Lines covered: 53, 54, 58, 59, 60
- * Branches covered: 54F, 58T
+ * Lines Covered: 53, 54, 58, 59, 60
+ * Branches Covered: 54F, 58T
  */
 BOOST_AUTO_TEST_CASE(deposit_negative_test) {
     CheckingAccount* account = new CheckingAccount("Nima", "Dahir", 10.00);

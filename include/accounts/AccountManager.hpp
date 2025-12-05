@@ -15,19 +15,19 @@ class AccountManager{
     public:
       AccountManager();
 
-     ~AccountManager();
+      ~AccountManager();
 
-     void addAccount(std::string username);
+      void addAccount(std::string username);
 
-     void makeDeposit(std::string username, double amount);
-     void makeWithdrawal(std::string username, double amount);
+      void makeDeposit(std::string username, double amount);
+      void makeWithdrawal(std::string username, double amount);
 
-     void deleteAccount(std::string username);
-     void displayAccount(std::string username);
-     int getNumAccounts() const;
+      void deleteAccount(std::string username);
+      std::string displayAccount(std::string username);
+      int getNumAccounts() const;
 
-    void addInterest();
-    void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
+      void addInterest();
+      void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
 };
 
