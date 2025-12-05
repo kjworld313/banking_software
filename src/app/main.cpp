@@ -14,9 +14,10 @@ int main(){
     std::map<std::string, BankAccount*> accts;
 
     while(!finished){
+
         //using getOption instead of print statements in starter code
         std::string input_string = getOption();
-
+        
         if(input_string == "0"){
             std::cout << "Thank you for using the software" << std::endl;
             finished = true;
