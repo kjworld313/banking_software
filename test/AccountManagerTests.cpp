@@ -17,8 +17,8 @@ BOOST_AUTO_TEST_CASE(makeDepositTest1){
     accs.makeDeposit("lblaney", 100.0);
 
     std::string displaystring = accs.displayAccount("lblaney");
-    std::string intendedstring;
-    //BOOST_CHECK_EQUAL(displaystring, );
+    std::string intendedstring = "First Name: Lucy\nLast Name: Blaney\nBalance: $100.000000\n";
+    BOOST_CHECK_EQUAL(displaystring, intendedstring);
 }
 
 /*
@@ -43,7 +43,10 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
     accs.makeDeposit("lblaney", 100.0);
     accs.makeWithdrawal("lblaney", 50.0);
 
-    //BOOST_CHECK_EQUAL(acc.getBalance(), 50.0);
+    std::string displaystring = accs.displayAccount("lblaney");
+    std::string intendedstring = "First Name: Lucy\nLast Name: Blaney\nBalance: $50.000000\n";
+
+    BOOST_CHECK_EQUAL(displaystring, indendedstring);
 }
 
 /*
