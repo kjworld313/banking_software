@@ -11,6 +11,23 @@ void errorMessage(const std::string error) {
     std::cout << "[ERROR]: " + error << std::endl;
 }
 
+// prints option prompt to user, returns option value
+int getOption(){
+    std::cout<<"Options"<<std::endl;
+    std::cout<<"0) Exit"<<std::endl;
+    std::cout<<"1) Make account"<<std::endl;
+    std::cout<<"2) Deposit to existing account"<<std::endl;
+    std::cout<<"3) Withdraw from existing account"<<std::endl;
+    std::cout<<"4) Display existing account"<<std::endl;
+    std::cout<<"5) Accrue Interest"<<std::endl;
+    std::cout<<"6) Write a check"<<std::endl;
+    std::cout<<"What would you like to do (Input single number):"<<std::endl;
+
+    std::string input_string;
+    std::cin>> input_string;
+
+    return std::stoi(input_string);
+}
 std::string getString(const std::string &prompt){
     std::cout << prompt;
     std::string input;
