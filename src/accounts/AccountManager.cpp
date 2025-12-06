@@ -3,7 +3,16 @@
 #include <stdexcept>
 #include "../utils/Utils.hpp"
 
-    //delete this line 
+    AccountManager::AccountManager(){
+        numAccounts = (0);
+    }
+
+    AccountManager::~AccountManager(){
+        for (auto it = accounts.begin(); it != accounts.end(); ++it){
+            delete it->second;
+        }
+        accounts.clear();
+    }
     //check if username already exists
     void AccountManager::addAccount(std::string username){
         if (accounts.find(username) != accounts.end()){
