@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
     std::string displaystring = accs.displayAccount("lblaney");
     std::string intendedstring = "First Name: Lucy\nLast Name: Blaney\nBalance: $50.000000\n";
 
-    BOOST_CHECK_EQUAL(displaystring, indendedstring);
+    BOOST_CHECK_EQUAL(displaystring, intendedstring);
 }
 
 /*
