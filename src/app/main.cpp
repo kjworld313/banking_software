@@ -1,6 +1,7 @@
 #include "BankAccount.hpp"
 #include "CheckingAccount.hpp"
 #include "SavingsAccount.hpp"
+#include "AccountManager.hpp"
 #include "Utils.hpp"
 
 #include <iostream>
@@ -10,7 +11,7 @@ int main(){
     std::cout<<"Welcome to the banking software!"<<std::endl;
 
     bool finished = false;
-
+    AccountManager accounts; 
     std::map<std::string, BankAccount*> accts;
 
     while(!finished){
@@ -47,49 +48,42 @@ int main(){
             }
         }  
         else if(input_string == "2"){
+            // ask user for username
             std::cout << "Enter the username:"; 
             std::string user;
             std::cin>> user;
 
-            if(accts.find(user) != accts.end()){
-                std::cout << "Enter amount:";
-                std::string deposit_amount_string;
-                std::cin>> deposit_amount_string;
-                
-                char *end;
-                double deposit_amount = strtod(deposit_amount_string.c_str(), &end);
-                if(*end == '\0'){
-                    accts[user]->deposit(deposit_amount);
-                }
-                else{
-                    std::cout << "I'm sorry, that is not a deposit amount." << std::endl;
-                }
-            }
-            else{
-                std::cout << "I'm sorry, that account does not exist" << std::endl;
+            // ask user for amount
+            std::cout << "Enter amount:";
+            std::string deposit_amount_string;
+            std::cin>> deposit_amount_string;
+
+            // convert amount to type double
+            char *end;
+            double deposit_amount = strtod(deposit_amount_string.c_str(), &end);
+            if(*end == '\0'){
+                // make deposit of amount to account user
+                accounts.makeDeposit(user, deposit_amount);
             }
         }
         else if(input_string == "3"){
+            // ask user for username2
             std::cout << "Enter the username:"; 
             std::string user;
             std::cin>> user;
 
-            if(accts.find(user) != accts.end()){
-                std::cout << "Enter amount:";
-                std::string withdrawal_amount_string;
-                std::cin>> withdrawal_amount_string;
-                
-                char *end;
-                double withdrawal_amount = strtod(withdrawal_amount_string.c_str(), &end);
-                if(*end == '\0'){
-                    accts[user]->withdrawal(withdrawal_amount);
-                }
-                else{
-                    std::cout << "I'm sorry, that is not a withdrawal amount." << std::endl;
-                }
-            }
-            else{
-                std::cout << "I'm sorry, that account does not exist" << std::endl;
+            // ask user for amount
+            std::cout << "Enter amount:";
+            std::string withdrawal_amount_string;
+            std::cin>> withdrawal_amount_string;
+            
+            // convert amount to type double
+            char *end;
+            double withdrawal_amount = strtod(withdrawal_amount_string.c_str(), &end);
+
+            // make withdrawal if conversion successful
+            if(*end == '\0'){ 
+                accounts.makeWithdrawal(user, withdrawal_amount);
             }
         }
         else if(input_string == "4"){
