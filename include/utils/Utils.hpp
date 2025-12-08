@@ -11,3 +11,6 @@ void errorMessage(const std::string error);
 BankAccount* make_account();
 
 std::string getString(const std::string &prompt);
+
+// function to get a double input from the user
+double getDouble(const std::string &prompt);
