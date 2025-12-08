@@ -25,6 +25,23 @@ BOOST_AUTO_TEST_CASE(constructor1_test) {
 }
 
 /**
+ * Lines Covered: 11, 12, 13
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(constructor2_test) {
+    // arrange
+    BankAccount* bank_account = nullptr;
+
+    // act
+    bank_account = new CheckingAccount("John", "Doe");
+
+    // assert
+    BOOST_CHECK_EQUAL(bank_account->getFirstName(), "John");
+    BOOST_CHECK_EQUAL(bank_account->getLastName(), "Doe");
+    BOOST_CHECK_EQUAL(bank_account->getBalance(), 0.00); // default balance
+}
+
+/**
  * Lines Covered: 17
  * Branches Covered: N/A
  */
@@ -38,16 +55,55 @@ BOOST_AUTO_TEST_CASE(balance_test) {
 }
 
 /**
- * Lines Covered: 29
+ * Lines Covered: 28, 29, 30
  * Branches Covered: N/A
  */
-// test on first name setter
 BOOST_AUTO_TEST_CASE(set_first_test) {
+    CheckingAccount* account = new CheckingAccount("Jane", "Doe");
+
+    account->setFirstName("Nima");
+
+    BOOST_CHECK_EQUAL(account->getFirstName(), "Nima");
+}
+
+
+/**
+ * Lines Covered: 33
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(set_last_name_test) {
     // arrange 
     CheckingAccount* account = new CheckingAccount("Jane", "Doe");
 
-    // act and assert
-    BOOST_CHECK_EQUAL(account->getFirstName(), "Jane");
+    // act 
+    account->setLastName("Blaney");
+
+    // assert
+    BOOST_CHECK_EQUAL(account->getLastName(), "Blaney");
+}
+
+/**
+ * Lines Covered: 20, 21, 22
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(get_first_name_test) {
+    // arrange 
+    CheckingAccount* account = new CheckingAccount("John", "Doe");
+
+    // act & assert
+    BOOST_CHECK_EQUAL(account->getFirstName(), "John");
+}
+
+/**
+ * Lines Covered: 24, 25, 26
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(get_last_name_test) {
+    // arrange 
+    CheckingAccount* account = new CheckingAccount("John", "Doe");
+
+    // act & assert
+    BOOST_CHECK_EQUAL(account->getLastName(), "Doe");
 }
 
 /**
