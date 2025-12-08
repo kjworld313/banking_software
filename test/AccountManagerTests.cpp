@@ -173,43 +173,58 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
     BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output);
 }
 
+/**
+ * Lines Covered: 59, 61, 64, 67, 70, 73, 75
+ * Branches Covered: 61T, 61F
+ */
 // test deleteaccount function
 BOOST_AUTO_TEST_CASE(delete_account_test) {
-    AccountManager manager;
-    manager.addAccount("user1"); // assume make_account creates a valid checkingaccount
+    AccountManager accounts;
+    accounts.addAccount("user1"); // assume make_account creates a valid checkingaccount
 
     // successful delete
-    BOOST_CHECK_NO_THROW(manager.deleteAccount("user1"));
-    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 0);
+    BOOST_CHECK_NO_THROW(accounts.deleteAccount("user1"));
+    BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 0);
 
     // delete non-existent account
-    BOOST_CHECK_THROW(manager.deleteAccount("user1"), std::invalid_argument);
+    BOOST_CHECK_THROW(accounts.deleteAccount("user1"), std::invalid_argument);
 }
 
+/**
+ * Lines Covered: 77, 79, 80, 81, 83, 86, 87, 88
+ * Branches Covered: 79T, 79F
+ */
 // test displayaccount function
 BOOST_AUTO_TEST_CASE(display_account_test) {
-    AccountManager manager;
-    manager.addAccount("user2"); // assume make_account creates a checkingaccount with default values
+    AccountManager accounts;
+    accounts.addAccount("user2"); 
+    // expected output based on default values for the account
+    std::string expected_output = 
+        "First Name: User\n"
+        "Last Name: Two\n"
+        "Balance: $0.000000\n";
 
-    std::string output = manager.displayAccount("user2");
-    BOOST_CHECK(output.find("First Name:") != std::string::npos);
-    BOOST_CHECK(output.find("Last Name:") != std::string::npos);
-    BOOST_CHECK(output.find("Balance: $") != std::string::npos);
+    // check that displayAccount returns the expected string
+    BOOST_CHECK_EQUAL(accounts.displayAccount("user2"), expected_output);
 
-    // display non-existent account
-    BOOST_CHECK_THROW(manager.displayAccount("no_user"), std::invalid_argument);
+    // check that displaying a non-existent account throws an exception
+    BOOST_CHECK_THROW(accounts.displayAccount("no_user"), std::invalid_argument);
 }
 
+/**
+ * Lines Covered: 91, 92, 93
+ * Branches Covered: None
+ */
 // test getter for number of accounts
 BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
-    AccountManager manager;
-    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 0);
+    AccountManager accounts;
+    BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 0);
 
-    manager.addAccount("user3");
-    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 1);
+    accounts.addAccount("user3");
+    BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 1);
 
-    manager.addAccount("user4");
-    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 2);
+    accounts.addAccount("user4");
+    BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 2);
 }
 
 
