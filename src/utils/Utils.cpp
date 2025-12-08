@@ -1,5 +1,6 @@
 #include "Utils.hpp"
 #include <iostream>
+#include <stdexcept>
 
 // function that prints a status message
 void statusMessage(const std::string status) {
@@ -67,3 +68,14 @@ BankAccount* make_account() {
     return acct;
 }
 
+double getDouble(const std::string &prompt) {
+    std::cout << prompt;
+    double value;
+    if (std::cin >> value) {
+        return value;
+    } else {
+        std::cin.clear(); 
+        std::cin.ignore(10000, '\n'); // remove bad input from buffer
+        throw std::invalid_argument("Input is not a valid number");
+    }
+}
