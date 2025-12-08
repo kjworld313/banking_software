@@ -27,7 +27,7 @@
         accounts[username] = accs;
         numAccounts++;
 
-        std::cout<<"Account successfully created for user: " << username << std::endl;
+        statusMessage("Account successfully created for user: " + username);
     }
 
     //function deposits amount into account with username
@@ -71,7 +71,7 @@
         // update the count
         numAccounts = numAccounts - 1;
     
-        std::cout << "[STATUS]: The account was deleted.\n";
+        statusMessage("The account was deleted.\n");
     }
     
     std::string AccountManager::displayAccount(std::string username) {
