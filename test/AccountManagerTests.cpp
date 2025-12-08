@@ -173,4 +173,44 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
     BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output);
 }
 
+// test deleteaccount function
+BOOST_AUTO_TEST_CASE(delete_account_test) {
+    AccountManager manager;
+    manager.addAccount("user1"); // assume make_account creates a valid checkingaccount
+
+    // successful delete
+    BOOST_CHECK_NO_THROW(manager.deleteAccount("user1"));
+    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 0);
+
+    // delete non-existent account
+    BOOST_CHECK_THROW(manager.deleteAccount("user1"), std::invalid_argument);
+}
+
+// test displayaccount function
+BOOST_AUTO_TEST_CASE(display_account_test) {
+    AccountManager manager;
+    manager.addAccount("user2"); // assume make_account creates a checkingaccount with default values
+
+    std::string output = manager.displayAccount("user2");
+    BOOST_CHECK(output.find("First Name:") != std::string::npos);
+    BOOST_CHECK(output.find("Last Name:") != std::string::npos);
+    BOOST_CHECK(output.find("Balance: $") != std::string::npos);
+
+    // display non-existent account
+    BOOST_CHECK_THROW(manager.displayAccount("no_user"), std::invalid_argument);
+}
+
+// test getter for number of accounts
+BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
+    AccountManager manager;
+    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 0);
+
+    manager.addAccount("user3");
+    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 1);
+
+    manager.addAccount("user4");
+    BOOST_CHECK_EQUAL(manager.getNumAccounts(), 2);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()
