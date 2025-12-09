@@ -24,20 +24,9 @@ int main(){
             finished = true;
         }
         else if(input_string == "1"){
-            std::cout << "Enter the username:"; 
-            std::string user;
-            std::cin>> user;
+            std::string user = getString("Enter your username: ");
 
-            if(accts.find(user) != accts.end()){
-                std::cout << "Sorry, that username is taken" << std::endl;
-            }
-            else{
-                BankAccount* acct = make_account();
-
-                if(acct != nullptr){
-                    accts[user] = acct;
-                }
-            }
+            account.addAccount(user);
         }  
         else if(input_string == "2"){
             // ask user for username
