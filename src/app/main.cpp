@@ -52,7 +52,7 @@ int main(){
             // ask user for username
             std::string user = getString("Enter your username: ");
 
-            statusMessage("/n" + accounts.displayAccount(user)); // display account
+            statusMessage("\n" + accounts.displayAccount(user)); // display account
         }
         else if(input_string == "5"){ // add interest on accounts
             // add interest to all accounts
