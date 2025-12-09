@@ -1,6 +1,6 @@
 #include "AccountManager.hpp"
-#include <iostream>
 #include <stdexcept>
+
 #include "../utils/Utils.hpp"
 
     AccountManager::AccountManager(){
@@ -82,7 +82,7 @@
     
         BankAccount* acc = accounts[username];
 
-        // return account as string
+        // return account as strings
         return "First Name: " + acc->getFirstName() + "\nLast Name: " + acc->getLastName() + 
         "\nBalance: $" + std::to_string(acc->getBalance()) + "\n";
     }
@@ -95,9 +95,9 @@
     // function that adds interest to all savings accounts and returns success of operation
     void AccountManager::addInterest() {
         // iterate through accounts map and accrue interest on all accounts
-        for (auto iterator = accounts.begin(); iterator != accounts.end(); iterator++) {
+        for (auto it = accounts.begin(); it != accounts.end(); it++) {
             // dynamically cast each account in map to determine if current account is a savings account
-            SavingsAccount* savingsAccount = dynamic_cast<SavingsAccount*>(iterator->second); // second is the bank account 
+            SavingsAccount* savingsAccount = dynamic_cast<SavingsAccount*>(it->second); // second is the bank account 
 
             // check if current account is a savings account and accrue interest
             if (savingsAccount != nullptr) {
@@ -130,6 +130,28 @@
         else { // checkWriter account does not exist in system, throw exception
             throw std::invalid_argument("Checking Account " + checkWriter + " does not exist in system.");
         }
+    } 
+
+    void AccountManager::serialize(std::string filename) {
+        // make sure there are accounts in accounts
+        if (accounts.size() == 0) {
+            throw std::out_of_range("There are no accounts to serialize.");
+        }
+
+        // open file
+        std::ofstream outfile;
+        outfile.open(filename);
+
+        // loop through accounts and serialize them
+        for (auto it = accounts.begin(); it != accounts.end(); it++){
+            BankAccount* account = it->second; // get the account 
+            std::string serialized_account = account->serialize(it->first); // serialize account with username
+            // write to file
+            outfile << serialized_account << '\n' << std::endl;
+        }
+
+        // close file
+        outfile.close();
     }
 
 

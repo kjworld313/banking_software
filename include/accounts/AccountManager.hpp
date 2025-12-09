@@ -3,6 +3,9 @@
 
 #include <string>
 #include <map>
+#include <iostream>
+#include <sstream>
+#include <fstream>
 
 #include "CheckingAccount.hpp"
 #include "SavingsAccount.hpp"
@@ -28,6 +31,8 @@ class AccountManager{
 
       void addInterest();
       void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
+
+      void serialize(std::string filename);
 
 };
 

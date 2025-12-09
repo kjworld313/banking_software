@@ -39,8 +39,8 @@ std::string getString(const std::string &prompt){
 BankAccount* make_account() {
     BankAccount *acct = nullptr;
 
-    std::string first = getString("Enter the first name ");
-    std::string last = getString("Enter the last name ");
+    std::string first = getString("Enter the first name: ");
+    std::string last = getString("Enter the last name: ");
 
     std::string choice = getString("Would you like to make a savings (1) or checking (2) account: ");
 

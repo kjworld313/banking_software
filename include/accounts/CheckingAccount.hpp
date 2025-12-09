@@ -13,7 +13,7 @@ public:
 
     std::string toString();
 
-    std::string serialize();
+    std::string serialize(std::string username);
 
     std::list<double> getCheckLog();
 
