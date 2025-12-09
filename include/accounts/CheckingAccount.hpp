@@ -13,6 +13,8 @@ public:
 
     std::string toString();
 
+    std::string serialize();
+
     std::list<double> getCheckLog();
 
     ~CheckingAccount() {}

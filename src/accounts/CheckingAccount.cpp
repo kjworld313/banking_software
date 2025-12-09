@@ -15,6 +15,10 @@ std::string CheckingAccount::toString(){
     return "Checking Account Balance: $" + std::to_string(getBalance());
 }
 
+std::string CheckingAccount::serialize(){
+    //how do we get a username???
+}
+
 std::list<double> CheckingAccount::getCheckLog(){
     return checkLog;
 }
