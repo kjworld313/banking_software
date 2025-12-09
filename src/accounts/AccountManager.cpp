@@ -71,7 +71,7 @@
         // update the count
         numAccounts = numAccounts - 1;
     
-        statusMessage("The account was deleted.\n");
+        statusMessage("The account " + username + " was deleted.\n");
     }
     
     std::string AccountManager::displayAccount(std::string username) {
