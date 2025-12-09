@@ -91,54 +91,19 @@ int main(){
             }
         }
         else if(input_string == "5"){
-            std::map<std::string, BankAccount*>::iterator it;
-
-            for(it = accts.begin(); it != accts.end(); it++){
-                if(dynamic_cast<SavingsAccount*>(it->second)){
-                    SavingsAccount *s = dynamic_cast<SavingsAccount*>(it->second);
-                    s->accrueInterest();
-                }
-            }
+            accounts.addInterest();
         }
         else if(input_string == "6"){
-            std::cout << "Enter the username of the account writing the check:"; 
-            std::string user;
-            std::cin>> user;
+            std::cout << "Enter the username of the account writing the check: "; 
+            std::string checkWriter;
+            std::cin>> checkWriter;
+            std::cout << "Enter the username of the account cashing the check: ";
+            std::string checkReceiver;
+            std::cin>> checkReceiver;
 
-            if(accts.find(user) != accts.end()){
-                BankAccount *acct = accts[user];
+            accounts.writeCheck(checkWriter, checkReceiver);
 
-                if(dynamic_cast<CheckingAccount*>(acct)){
-                    CheckingAccount *c = dynamic_cast<CheckingAccount*>(acct);
-                    std::cout << "Enter the username of the account cashing the check:"; 
-                    std::string target_account;
-                    std::cin>> target_account;
-
-                    if(accts.find(user) != accts.end()){
-                        std::cout << "Enter amount:";
-                        std::string check_amount_string;
-                        std::cin>> check_amount_string;
-                        
-                        char *end;
-                        double check_amount = strtod(check_amount_string.c_str(), &end);
-                        if(*end == '\0'){
-                            c->writeCheck(*accts[user], check_amount);
-                        }
-                        else{
-                            std::cout << "I'm sorry, that is not a withdrawal amount." << std::endl;
-                        }
-                    }
-                    else {
-                        std::cout << "The given account does not exist" << std::endl;
-                    }
-                }
-                else{
-                    std::cout << "The given account is not a checking account" << std::endl;
-                }
-            }
-            else{
-                std::cout << "I'm sorry, that account does not exist" << std::endl;
-            }
+            
         }
         else{
             std::cout << "I'm sorry, that is not a valid choice." << std::endl;
