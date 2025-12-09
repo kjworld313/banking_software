@@ -63,18 +63,9 @@ int main(){
             std::string user = getString("Enter your username: ");   
 
             // ask user for amount
-            std::cout << "Enter amount:";
-            std::string withdrawal_amount_string;
-            std::cin>> withdrawal_amount_string;
+            double withdrawal_amount = getDouble("Enter amount to be withdrawn");
             
-            // convert amount to type double
-            char *end;
-            double withdrawal_amount = strtod(withdrawal_amount_string.c_str(), &end);
-
-            // make withdrawal if conversion successful
-            if(*end == '\0'){ 
-                accounts.makeWithdrawal(user, withdrawal_amount);
-            }
+            accounts.makeWithdrawal(user, withdrawal_amount);
         }
         else if(input_string == "4"){
             std::string user = getString("Enter your username: ");
