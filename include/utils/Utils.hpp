@@ -5,6 +5,9 @@
 // function that prints a status message
 void statusMessage(const std::string status);
 
+// function that gets the option
+std::string getOption();
+
 // function that prints an error message
 void errorMessage(const std::string error);
 
@@ -14,3 +17,4 @@ std::string getString(const std::string &prompt);
 
 // function to get a double input from the user
 double getDouble(const std::string &prompt);
+

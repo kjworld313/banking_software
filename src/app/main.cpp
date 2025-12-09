@@ -26,7 +26,7 @@ int main(){
         else if(input_string == "1"){
             std::string user = getString("Enter your username: ");
 
-            account.addAccount(user);
+            accounts.addAccount(user);
         }  
         else if(input_string == "2"){
             // ask user for username
@@ -60,6 +60,10 @@ int main(){
             std::string checkReceiver = getString("Enter the username of the account cashing the check: ");
 
             accounts.writeCheck(checkWriter, checkReceiver);  
+        }
+        else if (input_string == "7") {
+            std::string user = getString("Enter the username to delete: "); // added to delete
+            accounts.deleteAccount(user);
         }
         else{
             std::cout << "I'm sorry, that is not a valid choice." << std::endl;
