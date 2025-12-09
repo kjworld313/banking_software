@@ -41,22 +41,13 @@ int main(){
         }  
         else if(input_string == "2"){
             // ask user for username
-            std::cout << "Enter the username:"; 
-            std::string user;
-            std::cin>> user;
+            std::string user = getString("Enter your username: ");
 
             // ask user for amount
-            std::cout << "Enter amount:";
-            std::string deposit_amount_string;
-            std::cin>> deposit_amount_string;
+            double deposit_amount = getDouble("Enter amount to be deposited: ");
 
-            // convert amount to type double
-            char *end;
-            double deposit_amount = strtod(deposit_amount_string.c_str(), &end);
-            if(*end == '\0'){
-                // make deposit of amount to account user
-                accounts.makeDeposit(user, deposit_amount);
-            }
+            // make deposit of amount to account user
+            accounts.makeDeposit(user, deposit_amount);
         }
         else if(input_string == "3"){
             // ask user for username2
