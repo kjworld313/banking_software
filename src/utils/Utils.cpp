@@ -55,14 +55,14 @@ BankAccount* make_account() {
             }
         }
         else{
-            std::cout << "I'm sorry, that is not a valid interest rate." << std::endl;
+            errorMessage("I'm sorry, that is not a valid interest rate.");
         }
     }
     else if(choice == "2"){
         acct = new CheckingAccount(first, last);
     }
     else{
-        std::cout << "I'm sorry, that is not a valid choice." << std::endl;
+        errorMessage("I'm sorry, that is not a valid choice.");
     }
 
     return acct;

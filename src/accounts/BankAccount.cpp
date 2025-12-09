@@ -1,4 +1,5 @@
 #include "BankAccount.hpp"
+#include "Utils.hpp"
 #include <iostream>
 
 BankAccount::BankAccount(std::string first, std::string last, double initBalance){
@@ -40,12 +41,12 @@ bool BankAccount::withdrawal(double amount){
             return true;
         }
         else {
-            std::cout << "Withdrawal amount greater than balance." << std::endl;
+            errorMessage("Withdrawal amount greater than balance.");
             return false;
         }
     }
     else {
-        std::cout << "Invalid amount to withdrawal. Must be positive."<<std::endl;
+        errorMessage("Invalid amount to withdrawal. Must be positive.");
         return false;
     }
 }
@@ -56,7 +57,7 @@ bool BankAccount::deposit(double amount){
         return true;
     }
     else {
-        std::cout << "Invalid amount to deposit. Must be positive." << std::endl;
+        errorMessage("Invalid amount to deposit. Must be positive.");
         return false;
     }
 }
