@@ -23,11 +23,13 @@ int main(){
             std::cout << "Thank you for using the software" << std::endl;
             finished = true;
         }
+        
         else if(input_string == "1"){
             std::string user = getString("Enter your username: ");
 
             account.addAccount(user);
         }  
+        
         else if(input_string == "2"){
             // ask user for username
             std::string user = getString("Enter your username: ");
@@ -38,6 +40,7 @@ int main(){
             // make deposit of amount to account user
             accounts.makeDeposit(user, deposit_amount);
         }
+        
         else if(input_string == "3"){
             // ask user for username2
             std::string user = getString("Enter your username: ");   
@@ -47,20 +50,24 @@ int main(){
             
             accounts.makeWithdrawal(user, withdrawal_amount);
         }
+        
         else if(input_string == "4"){
             std::string user = getString("Enter your username: ");
 
             accounts.displayAccount(user);
         }
+        
         else if(input_string == "5"){
             accounts.addInterest();
         }
+        
         else if(input_string == "6"){
             std::string checkWriter = getString("Enter the username of the account writing check: ");
             std::string checkReceiver = getString("Enter the username of the account cashing the check: ");
 
             accounts.writeCheck(checkWriter, checkReceiver);  
         }
+        
         else{
             std::cout << "I'm sorry, that is not a valid choice." << std::endl;
         }
