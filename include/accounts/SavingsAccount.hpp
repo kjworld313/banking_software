@@ -15,6 +15,7 @@ public:
     void accrueInterest();
 
     std::string toString();
+    std::string serialize();
 
     ~SavingsAccount() {}
 
