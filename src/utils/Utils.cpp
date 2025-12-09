@@ -29,6 +29,8 @@ std::string getOption(){
 
     return input_string;
 }
+
+// function that takes a prompt and returns user input
 std::string getString(const std::string &prompt){
     std::cout << prompt;
     std::string input;
@@ -36,38 +38,43 @@ std::string getString(const std::string &prompt){
     return input;
 }
 
+// function that makes a BankAccount pointer
 BankAccount* make_account() {
     BankAccount *acct = nullptr;
 
+    // get name information
     std::string first = getString("Enter the first name: ");
     std::string last = getString("Enter the last name: ");
 
+    // get account type from user
     std::string choice = getString("Would you like to make a savings (1) or checking (2) account: ");
 
-    if(choice == "1"){
+    if(choice == "1"){ // savings account
         std::string interest_rate_string = getString("Enter the interest rate: ");
 
+        // convert interest rate to double
         char *end;
         double interest_rate = strtod(interest_rate_string.c_str(), &end);
         if(*end == '\0'){
             if(interest_rate > 0 && interest_rate < 1){
-                acct = new SavingsAccount(first, last, interest_rate);
+                acct = new SavingsAccount(first, last, interest_rate); // make a savings account
             }
         }
-        else{
+        else{ // invalid input
             errorMessage("I'm sorry, that is not a valid interest rate.");
         }
     }
-    else if(choice == "2"){
-        acct = new CheckingAccount(first, last);
+    else if(choice == "2"){ // checking account
+        acct = new CheckingAccount(first, last); // make a checking account
     }
-    else{
+    else{ // invalid choice
         errorMessage("I'm sorry, that is not a valid choice.");
     }
 
     return acct;
 }
 
+// function to get a double input from the user
 double getDouble(const std::string &prompt) {
     std::cout << prompt;
     double value;

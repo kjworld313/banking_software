@@ -13,8 +13,9 @@
         }
         accounts.clear();
     }
-    //check if username already exists
+
     void AccountManager::addAccount(std::string username){
+        // check if username already exists
         if (accounts.find(username) != accounts.end()){
             throw std::invalid_argument("Username already exists.");
         }
@@ -30,7 +31,7 @@
         statusMessage("Account successfully created for user: " + username);
     }
 
-    //function deposits amount into account with username
+    // function deposits amount into account with username
     void AccountManager::makeDeposit(std::string username, double amount){
         auto it = accounts.find(username);
 
@@ -44,6 +45,7 @@
         }
     }
 
+    //function withdraws amount from account with username
     void AccountManager::makeWithdrawal(std::string username, double amount){
         auto it = accounts.find(username);
 
@@ -56,6 +58,7 @@
             throw std::out_of_range("Username does not exist.");
         }
     }
+
     void AccountManager::deleteAccount(std::string username) {
         // check if username exists
         if (accounts.count(username) == 0) {
@@ -87,7 +90,7 @@
         "\nBalance: $" + std::to_string(acc->getBalance()) + "\n";
     }
         
-    // numAccounts
+    // access numAccounts
     int AccountManager::getNumAccounts() const {
         return numAccounts;
     }
@@ -105,7 +108,6 @@
             }
         }
     }
-
 
     // function that attempts to write a check from writer to receiver
     void AccountManager::writeCheck(std::string checkWriter, std::string checkReceiver, double amount) {
@@ -132,6 +134,7 @@
         }
     } 
 
+    // function that serializes all accounts tracked by AccountManager, writing each account to a file
     void AccountManager::serialize(std::string filename) {
         // make sure there are accounts in accounts
         if (accounts.size() == 0) {
