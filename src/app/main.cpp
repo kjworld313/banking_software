@@ -79,16 +79,9 @@ int main(){
             }
         }
         else if(input_string == "4"){
-            std::cout << "Enter the username:"; 
-            std::string user;
-            std::cin>> user;
+            std::string user = getString("Enter your username: ");
 
-            if(accts.find(user) != accts.end()){
-                std::cout<<accts[user]->toString()<<std::endl;
-            }
-            else{
-                std::cout << "I'm sorry, that account does not exist" << std::endl;
-            }
+            accounts.displayAccount(user);
         }
         else if(input_string == "5"){
             accounts.addInterest();
