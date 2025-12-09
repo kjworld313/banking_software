@@ -63,7 +63,10 @@ int main(){
             std::string checkWriter = getString("Enter the username of the account writing check: ");
             std::string checkReceiver = getString("Enter the username of the account cashing the check: ");
 
-            accounts.writeCheck(checkWriter, checkReceiver);   // write the check
+            // ask user for 
+            double check_amount = getDouble("Enter the amount of the check: ");
+
+            accounts.writeCheck(checkWriter, checkReceiver, check_amount);   // write the check
         }
         else if (input_string == "7") { // delete account
             // ask user for username then delete account

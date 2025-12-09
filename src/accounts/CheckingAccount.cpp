@@ -1,5 +1,4 @@
 #include "CheckingAccount.hpp"
-#include "main.cpp"
 
 bool CheckingAccount::writeCheck(BankAccount &a, double amount){
     bool success = withdrawal(amount);
@@ -17,7 +16,7 @@ std::string CheckingAccount::toString(){
 }
 
 std::string CheckingAccount::serialize(std::string username){
-    //
+    return "";
 }
 
 std::list<double> CheckingAccount::getCheckLog(){

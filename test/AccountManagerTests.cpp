@@ -4,6 +4,9 @@
 #include <string>
 #include "AccountManager.hpp"
 
+// note the space before the '.' indicating root directory. do not include space
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Kj World 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2"
+
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
 /*
@@ -225,6 +228,19 @@ BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
 
     accounts.addAccount("user4");
     BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 2);
+}
+
+/** 
+ * Lines Covered: 137, 138
+ * Branches Covered: 137T
+ */
+// test serialize function with no accounts
+BOOST_AUTO_TEST_CASE(throw_serialize_test) {
+    // arrange
+    AccountManager accounts;
+
+    // act and assert
+    BOOST_CHECK_THROW(accounts.serialize("empty_file"), std::out_of_range);
 }
 
 

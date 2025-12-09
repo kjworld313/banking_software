@@ -1,6 +1,6 @@
 #include "AccountManager.hpp"
-#include <iostream>
 #include <stdexcept>
+
 #include "../utils/Utils.hpp"
 
     AccountManager::AccountManager(){
@@ -132,22 +132,26 @@
         }
     } 
 
-    void AccountManager::serialize(std::string output_file) {
+    void AccountManager::serialize(std::string filename) {
         // make sure there are accounts in accounts
         if (accounts.size() == 0) {
             throw std::out_of_range("There are no accounts to serialize.");
         }
 
         // open file
+        std::ofstream outfile;
+        outfile.open(filename);
 
         // loop through accounts and serialize them
-        for (it = accts.begin(); it != accts.end(); it++){
-            std::string serialized_account = serialize(it->second);
-
+        for (auto it = accounts.begin(); it != accounts.end(); it++){
+            BankAccount* account = it->second; // get the account 
+            std::string serialized_account = account->serialize(it->first); // serialize account with username
             // write to file
+            outfile << serialized_account << '\n' << std::endl;
         }
 
         // close file
+        outfile.close();
     }
 
 
