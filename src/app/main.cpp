@@ -94,16 +94,10 @@ int main(){
             accounts.addInterest();
         }
         else if(input_string == "6"){
-            std::cout << "Enter the username of the account writing the check: "; 
-            std::string checkWriter;
-            std::cin>> checkWriter;
-            std::cout << "Enter the username of the account cashing the check: ";
-            std::string checkReceiver;
-            std::cin>> checkReceiver;
+            std::string checkWriter = getString("Enter the username of the account writing check: ");
+            std::string checkReceiver = getString("Enter the username of the account cashing the check: ");
 
-            accounts.writeCheck(checkWriter, checkReceiver);
-
-            
+            accounts.writeCheck(checkWriter, checkReceiver);  
         }
         else{
             std::cout << "I'm sorry, that is not a valid choice." << std::endl;
