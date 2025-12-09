@@ -29,6 +29,8 @@ class AccountManager{
       void addInterest();
       void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
+      void serialize(std::string output_file);
+
 };
 
 #endif
