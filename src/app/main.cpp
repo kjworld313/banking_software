@@ -60,9 +60,7 @@ int main(){
         }
         else if(input_string == "3"){
             // ask user for username2
-            std::cout << "Enter the username:"; 
-            std::string user;
-            std::cin>> user;
+            std::string user = getString("Enter your username: ");   
 
             // ask user for amount
             std::cout << "Enter amount:";
