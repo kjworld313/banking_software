@@ -20,7 +20,7 @@ public:
 
     virtual std::string toString() = 0;
 
-    virtual std::string serialize() = 0;
+    virtual std::string serialize(std::string username) = 0;
 
     virtual ~BankAccount() {};
 
