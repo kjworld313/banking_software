@@ -19,7 +19,7 @@ std::string CheckingAccount::serialize(std::string username){
     std::string result = username + ",checking," + getFirstName() + "," + getLastName() + "," 
     + std::to_string(getBalance());
 
-    for(std::list<double>::const_interator it = checkLog.begin();, it != checkLog.end(); it++){
+    for(std::list<double>::const_iterator it = checkLog.begin(); it != checkLog.end(); it++){
         result += "," + std::to_string(*it);
     }
     return result;

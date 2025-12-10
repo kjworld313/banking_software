@@ -147,69 +147,75 @@
         std::ofstream outfile;
         outfile.open(filename);
 
-        // loop through accounts and serialize them
-        for (auto it = accounts.begin(); it != accounts.end(); it++){
-            BankAccount* account = it->second; // get the account 
-            std::string serialized_account = account->serialize(it->first); // serialize account with username
-            // write to file
-            outfile << serialized_account << '\n' << std::endl;
+        // ensure file is open then proceed
+        if (outfile.is_open()) {
+            // loop through accounts and serialize them
+            for (auto it = accounts.begin(); it != accounts.end(); it++){
+                BankAccount* account = it->second; // get the account 
+                std::string serialized_account = account->serialize(it->first); // serialize account with username
+                // write to file
+                outfile << serialized_account << '\n' << std::endl;
+            }
+
+            // close file
+            outfile.close();
+        }
+        else { // file did not open successfully
+            throw std::runtime_error("Could not create file: " + filename);
+        }
+    }
+    // function that deserializes accounts from a file and adds them to AccountManager
+    void AccountManager::deserialize(std::string filename) {
+        std::ifstream infile(filename);
+        if (!infile.is_open()) {
+            throw std::runtime_error("Could not open file: " + filename);
         }
 
-        // close file
-        outfile.close();
-    }
-        // function that deserializes accounts from a file and adds them to AccountManager
-        void AccountManager::deserialize(std::string filename) {
-            std::ifstream infile(filename);
-            if (!infile.is_open()) {
-             throw std::runtime_error("Could not open file: " + filename);
+        // delete existing accounts
+        for (auto it = accounts.begin(); it != accounts.end(); ++it) {
+            delete it->second;
+        }
+        accounts.clear();
+        numAccounts = 0;
+
+        std::string line;
+        while (std::getline(infile, line)) {
+            if (line.empty()) {
+                continue; 
             }
 
-            // delete existing accounts
-            for (auto it = accounts.begin(); it != accounts.end(); ++it) {
-                delete it->second;
+            // split line by commas using boost
+            std::vector<std::string> parts;
+            boost::split(parts, line, boost::is_any_of(","));
+
+            if (parts.size() < 5) {
+                continue;
             }
-            accounts.clear();
-            numAccounts = 0;
+            // extract account details
+            std::string type = parts[0];
+            std::string username = parts[1];    
+            std::string firstName = parts[2];
+            std::string lastName = parts[3];
+            double balance = std::stod(parts[4]);
 
-            std::string line;
-            while (std::getline(infile, line)) {
-                if (line.empty()) {
-                    continue; 
+            BankAccount* account = nullptr;
+
+            if (type == "Checking") {
+                account = new CheckingAccount(firstName, lastName, balance);
+            } 
+            else if (type == "Savings") {
+                double rate = 0.0;
+                if (parts.size() >= 6) {
+                double interestRate = std::stod(parts[5]);
                 }
-
-                // split line by commas using boost
-                std::vector<std::string> parts;
-                boost::split(parts, line, boost::is_any_of(","));
-
-                if (parts.size() < 5) {
-                    continue;
-                }
-                // extract account details
-                std::string type = parts[0];
-                std::string username = parts[1];    
-                std::string firstName = parts[2];
-                std::string lastName = parts[3];
-                double balance = std::stod(parts[4]);
-
-                BankAccount* account = nullptr;
-
-                if (type == "Checking") {
-                    account = new CheckingAccount(firstName, lastName, balance);
-                } 
-                else if (type == "Savings") {
-                   double rate = 0.0;
-                   if (parts.size() >= 6) {
-                    double interestRate = std::stod(parts[5]);
-                    }
-                    
-                    account = new SavingsAccount(firstName, lastName, balance, rate);
-                } 
-                else {
-                    continue; 
-                }
-                accounts[username] = account;
-                numAccounts++;
+                
+                account = new SavingsAccount(firstName, lastName, balance, rate);
+            } 
+            else {
+                continue; 
+            }
+            accounts[username] = account;
+            numAccounts++;
         }
         infile.close();
         //close file
