@@ -5,7 +5,7 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     AccountManager accounts;
 
     // act and assert
-    BOOST_CHECK_THROW(accounts.serialize("test_file"), std::out_of_range);
+    BOOST_CHECK_THROW(accounts.serialize("test_file.txt"), std::out_of_range);
 }
 
 /**
@@ -244,7 +244,30 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
  }
 
  /**
-  * Lines Covered: 142, 147, 148, 151, 156, 
+  * Lines Covered: 142, 147, 148, 151, 156, 157, 158, 160
+  * Branches Covered: 142F, 151F, 156T
   */
+ // test serialize function, should be successful
+ BOOST_AUTO_TEST_CASE(serialize_test) {
+    // arrange
+    AccountManager accounts;
+    accounts.addAccount("username1");
+    accounts.addAccount("username2");
+    accounts.addAccount("username3");
+    AccountManager expected_accounts;
+    expected_accounts.addAccount("username1");
+    expected_accounts.addAccount("username2");
+    expected_accounts.addAccount("username3");
+
+    // act
+    accounts.serialize("test_file.txt");
+    accounts.deserialize("test_file.txt"); // get information back
+    
+    // assert
+    for (int i = 1; i < accounts.getNumAccounts(); i++) {
+        std::string num = std::to_string(i);
+        BOOST_CHECK_EQUAL(accounts.displayAccount("username" + num), expected_accounts.displayAccount("username" + num));
+    }
+ }
 
 BOOST_AUTO_TEST_SUITE_END()
