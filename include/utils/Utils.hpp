@@ -8,12 +8,14 @@ void statusMessage(const std::string status);
 // function that prints an error message
 void errorMessage(const std::string error);
 
-// function that gets the option
+// function that prints option prompt to user, returns option value
 std::string getOption();
 
-BankAccount* make_account();
-
+// function that takes a prompt and returns user input
 std::string getString(const std::string &prompt);
+
+// function that makes a BankAccount pointer
+BankAccount* make_account();
 
 // function to get a double input from the user
 double getDouble(const std::string &prompt);

@@ -19,9 +19,9 @@ BOOST_AUTO_TEST_CASE(makeDepositTest1){
     accs.addAccount("lblaney");
     accs.makeDeposit("lblaney", 100.0);
 
-    std::string displaystring = accs.displayAccount("lblaney");
-    std::string intendedstring = "First Name: Lucy\nLast Name: Blaney\nBalance: $100.000000\n";
-    BOOST_CHECK_EQUAL(displaystring, intendedstring);
+    std::string display_string = accs.displayAccount("lblaney");
+    std::string expected_string = "First Name: Lucy\nLast Name: Blaney\nBalance: $100.000000\n";
+    BOOST_CHECK_EQUAL(display_string, expected_string);
 }
 
 /*
@@ -46,10 +46,10 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
     accs.makeDeposit("lblaney", 100.0);
     accs.makeWithdrawal("lblaney", 50.0);
 
-    std::string displaystring = accs.displayAccount("lblaney");
-    std::string intendedstring = "First Name: Lucy\nLast Name: Blaney\nBalance: $50.000000\n";
+    std::string display_string = accs.displayAccount("lblaney");
+    std::string expected_string = "First Name: Lucy\nLast Name: Blaney\nBalance: $50.000000\n";
 
-    BOOST_CHECK_EQUAL(displaystring, intendedstring);
+    BOOST_CHECK_EQUAL(display_string, expected_string);
 }
 
 /*
@@ -73,13 +73,13 @@ BOOST_AUTO_TEST_CASE(add_interest_test1) {
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must be savings account
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_output = "First Name: Kj\nLast Name: World\nBalance: $12.000000\n";
+    std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $12.000000\n";
 
     // act
     accounts.addInterest();
 
     // assert
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
 }
 
 /**
@@ -92,13 +92,13 @@ BOOST_AUTO_TEST_CASE(add_interest_test2) {
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must be checking account (not a savings)
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_output = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
+    std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
 
     // act
     accounts.addInterest();
 
     // assert
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
 }
 
 /**
@@ -112,15 +112,15 @@ BOOST_AUTO_TEST_CASE(write_check_test1) {
     accounts.addAccount("kjworld313"); // must be checking account
     accounts.addAccount("riley414"); // can be any type of account
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_output1 = "First Name: Kj\nLast Name: World\nBalance: $0.000000\n";
-    std::string expected_output2 = "First Name: Riley\nLast Name: Puppy\nBalance: $10.000000\n";
+    std::string expected_string1 = "First Name: Kj\nLast Name: World\nBalance: $0.000000\n";
+    std::string expected_string2 = "First Name: Riley\nLast Name: Puppy\nBalance: $10.000000\n";
 
     // act
     accounts.writeCheck("kjworld313", "riley414", 10.00);
 
     // assert
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output1);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_output2);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string1);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string2);
 }
 
 /**
@@ -132,11 +132,11 @@ BOOST_AUTO_TEST_CASE(write_check_test2) {
     // arrange
     AccountManager accounts;
     accounts.addAccount("riley414"); // can be any type of account
-    std::string expected_output = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
+    std::string expected_string = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
 
     // act and assert
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_output);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string);
 }
 
 /**
@@ -150,13 +150,13 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
     accounts.addAccount("kjworld313"); // must not be checking account
     accounts.addAccount("riley414"); // can be any type of account
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_output1 = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
-    std::string expected_output2 = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
+    std::string expected_string1 = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
+    std::string expected_string2 = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
 
     // act and assert
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output1);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_output2);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string1);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string2);
 }
 
 /**
@@ -169,11 +169,11 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must be checking account
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_output = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
+    std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
 
     // act and assert
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_output);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
 }
 
 /**
@@ -202,13 +202,13 @@ BOOST_AUTO_TEST_CASE(display_account_test) {
     AccountManager accounts;
     accounts.addAccount("user2"); 
     // expected output based on default values for the account
-    std::string expected_output = 
+    std::string expected_string = 
         "First Name: User\n"
         "Last Name: Two\n"
         "Balance: $0.000000\n";
 
     // check that displayAccount returns the expected string
-    BOOST_CHECK_EQUAL(accounts.displayAccount("user2"), expected_output);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("user2"), expected_string);
 
     // check that displaying a non-existent account throws an exception
     BOOST_CHECK_THROW(accounts.displayAccount("no_user"), std::invalid_argument);
