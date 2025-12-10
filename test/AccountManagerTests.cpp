@@ -5,7 +5,7 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Kj World 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
@@ -64,46 +64,31 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest2){
 }
 
 /**
- * Lines Covered: 90, 102, 105, 106
- * Branches Covered: 90T, 105T
+ * Lines Covered: 103, 105, 108, 109
+ * Branches Covered: 103T, 108T
  */ 
-// test on addInterest() that should have successful output
+// test on addInterest() that makes sure only savings accounts accrue interest
 BOOST_AUTO_TEST_CASE(add_interest_test1) {
     // arrange
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must be savings account
+    accounts.addAccount("riley414"); // must be non-savings account
     accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $12.000000\n";
+    accounts.makeDeposit("riley414", 10.00);
+    std::string expected_string1 = "First Name: Kj\nLast Name: World\nBalance: $12.000000\n";
+    std::string expected_string2 = "First Name: Riley\nLast Name: Puppy\nBalance: $10.000000\n";
 
     // act
     accounts.addInterest();
 
     // assert
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string1);
+    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string2);
 }
 
 /**
- * Lines Covered: 90, 102, 105
- * Branches Covered: 90T, 105F
- */ 
-// test on addInterest() that should not accrue interest on a non-savings account
-BOOST_AUTO_TEST_CASE(add_interest_test2) {
-    // arrange
-    AccountManager accounts;
-    accounts.addAccount("kjworld313"); // must be checking account (not a savings)
-    accounts.makeDeposit("kjworld313", 10.00);
-    std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
-
-    // act
-    accounts.addInterest();
-
-    // assert
-    BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
-}
-
-/**
- * Lines Covered: 116, 118, 121, 123, 124, 126, 129, 133
- * Branches Covered: 116T, 121T, 126F, 129F, 133F
+ * Lines Covered: 117, 119, 122, 124, 125
+ * Branches Covered: 117T, 122T
  */ 
 // test on writeCheck() that should be successful 
 BOOST_AUTO_TEST_CASE(write_check_test1) {
@@ -124,8 +109,8 @@ BOOST_AUTO_TEST_CASE(write_check_test1) {
 }
 
 /**
- * Lines Covered: 116, 133, 134
- * Branches Covered: 116F, 133T
+ * Lines Covered: 117, 134, 135
+ * Branches Covered: 117F, 134T
  */ 
 // test on writeCheck() that should not be successful for an invalid check writer username
 BOOST_AUTO_TEST_CASE(write_check_test2) {
@@ -140,8 +125,8 @@ BOOST_AUTO_TEST_CASE(write_check_test2) {
 }
 
 /**
- * Lines Covered: 116, 118, 121, 126, 127
- * Branches Covered: 116T, 121F, 126T
+ * Lines Covered: 117, 119, 122, 127, 128
+ * Branches Covered: 117T, 122F, 127T
  */ 
 // test on writeCheck() that should not be successful for an invalid checking account
 BOOST_AUTO_TEST_CASE(write_check_test3) {
@@ -160,8 +145,8 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
 }
 
 /**
- * Lines Covered: 116,118, 121, 126, 129, 130
- * Branches Covered: 116T, 121F, 126F, 129T
+ * Lines Covered: 117, 119, 122, 127, 130, 131
+ * Branches Covered: 117T, 122F, 127F, 130T
  */ 
 // test on writeCheck() that should not be successful for an invalid check receiver username
 BOOST_AUTO_TEST_CASE(write_check_test4) {
@@ -177,8 +162,8 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
 }
 
 /**
- * Lines Covered: 59, 61, 64, 67, 70, 73, 75
- * Branches Covered: 61T, 61F
+ * Lines Covered: 66, 67, 71, 74, 77, 79
+ * Branches Covered: 66T
  */
 // test deleteaccount function
 BOOST_AUTO_TEST_CASE(delete_account_test) {
@@ -194,8 +179,8 @@ BOOST_AUTO_TEST_CASE(delete_account_test) {
 }
 
 /**
- * Lines Covered: 77, 79, 80, 81, 83, 86, 87, 88
- * Branches Covered: 79T, 79F
+ * Lines Covered: 84, 85
+ * Branches Covered: 84T
  */
 // test displayaccount function
 BOOST_AUTO_TEST_CASE(display_account_test) {
@@ -215,7 +200,7 @@ BOOST_AUTO_TEST_CASE(display_account_test) {
 }
 
 /**
- * Lines Covered: 91, 92, 93
+ * Lines Covered: 97
  * Branches Covered: None
  */
 // test getter for number of accounts
@@ -231,8 +216,8 @@ BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
 }
 
 /** 
- * Lines Covered: 137, 138
- * Branches Covered: 137T
+ * Lines Covered: 142, 143
+ * Branches Covered: 142T
  */
 // test serialize function with no accounts
 BOOST_AUTO_TEST_CASE(throw_serialize_test) {
@@ -257,5 +242,9 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     // act and assert
     BOOST_CHECK_THROW(accounts.serialize("./test/"), std::runtime_error);
  }
+
+ /**
+  * Lines Covered: 142, 147, 148, 151, 156, 
+  */
 
 BOOST_AUTO_TEST_SUITE_END()
