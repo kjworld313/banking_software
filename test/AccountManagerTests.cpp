@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
  }
 
  /**
-  * Lines Covered: 142, 147, 148, 151, 153, 154, 155, 157, 165
+  * Lines Covered: 142, 147, 148, 151, 153, 154, 155, 157, 161
   * Branches Covered: 142F, 151T, 153T
   */
  // test serialize function, should be successful
