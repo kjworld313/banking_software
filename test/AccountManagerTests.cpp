@@ -229,8 +229,8 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 }
 
 /**
- * Lines Covered: 142, 147, 148, 151, 152
- * Branches Covered: 142F 151T
+ * Lines Covered: 142, 147, 148, 151, 161
+ * Branches Covered: 142F, 151F, 160T
  */
 
  // test serialize function with file open failure (attempting to write to a directory)
@@ -244,8 +244,8 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
  }
 
  /**
-  * Lines Covered: 142, 147, 148, 151, 156, 157, 158, 160
-  * Branches Covered: 142F, 151F, 156T
+  * Lines Covered: 142, 147, 148, 151, 153, 154, 155, 157, 165
+  * Branches Covered: 142F, 151T, 153T
   */
  // test serialize function, should be successful
  BOOST_AUTO_TEST_CASE(serialize_test) {

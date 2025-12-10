@@ -156,11 +156,12 @@
                 // write to file
                 outfile << serialized_account << '\n' << std::endl;
             }
-        } else { // file did not open successfully
+        }
+        else { // file did not open successfully
             throw std::runtime_error("Could not create file: " + filename);
         }
 
-        // close files
+        // close file
         outfile.close();
     }
     // function that deserializes accounts from a file and adds them to AccountManager
