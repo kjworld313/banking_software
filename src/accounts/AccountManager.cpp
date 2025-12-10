@@ -158,28 +158,34 @@
         // close file
         outfile.close();
     }
-
+        // function that deserializes accounts from a file and adds them to AccountManager
         void AccountManager::deserialize(std::string filename) {
             std::ifstream infile(filename);
             if (!infile.is_open()) {
              throw std::runtime_error("Could not open file: " + filename);
             }
+
+            // delete existing accounts
             for (auto it = accounts.begin(); it != accounts.end(); ++it) {
                 delete it->second;
             }
             accounts.clear();
             numAccounts = 0;
+
             std::string line;
             while (std::getline(infile, line)) {
                 if (line.empty()) {
                     continue; 
                 }
+
+                // split line by commas using boost
                 std::vector<std::string> parts;
                 boost::split(parts, line, boost::is_any_of(","));
 
                 if (parts.size() < 5) {
                     continue;
                 }
+                // extract account details
                 std::string type = parts[0];
                 std::string username = parts[1];    
                 std::string firstName = parts[2];
@@ -206,6 +212,7 @@
                 numAccounts++;
         }
         infile.close();
+        //close file
 
         statusMessage("Accounts successfully deserialized from file: " + filename);
     }
