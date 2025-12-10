@@ -16,8 +16,13 @@ std::string CheckingAccount::toString(){
 }
 
 std::string CheckingAccount::serialize(std::string username){
-    return "Checking, "  + username + "," + getFirstName() + "," + getLastName() + "," 
+    std::string result = username + ",checking," + getFirstName() + "," + getLastName() + "," 
     + std::to_string(getBalance());
+
+    for(std::list<double>::const_interator it = checkLog.begin();, it != checkLog.end(); it++){
+        result += "," + std::to_string(*it);
+    }
+    return result;
 }
 
 std::list<double> CheckingAccount::getCheckLog(){
