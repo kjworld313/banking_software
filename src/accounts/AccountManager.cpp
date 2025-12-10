@@ -1,6 +1,8 @@
 #include "AccountManager.hpp"
 #include <stdexcept>
-
+#include <fstream>
+#include <boost/algorithm/string.hpp>
+#include <vector>
 #include "../utils/Utils.hpp"
 
     AccountManager::AccountManager(){
@@ -157,4 +159,53 @@
         outfile.close();
     }
 
+        void AccountManager::deserialize(std::string filename) {
+            std::ifstream infile(filename);
+            if (!infile.is_open()) {
+             throw std::runtime_error("Could not open file: " + filename);
+            }
+            for (auto it = accounts.begin(); it != accounts.end(); ++it) {
+                delete it->second;
+            }
+            accounts.clear();
+            numAccounts = 0;
+            std::string line;
+            while (std::getline(infile, line)) {
+                if (line.empty()) {
+                    continue; 
+                }
+                std::vector<std::string> parts;
+                boost::split(parts, line, boost::is_any_of(","));
 
+                if (parts.size() < 5) {
+                    continue;
+                }
+                std::string type = parts[0];
+                std::string username = parts[1];    
+                std::string firstName = parts[2];
+                std::string lastName = parts[3];
+                double balance = std::stod(parts[4]);
+
+                BankAccount* account = nullptr;
+
+                if (type == "Checking") {
+                    account = new CheckingAccount(firstName, lastName, balance);
+                } 
+                else if (type == "Savings") {
+                   double rate = 0.0;
+                   if (parts.size() >= 6) {
+                    double interestRate = std::stod(parts[5]);
+                    }
+                    
+                    account = new SavingsAccount(firstName, lastName, balance, rate);
+                } 
+                else {
+                    continue; 
+                }
+                accounts[username] = account;
+                numAccounts++;
+        }
+        infile.close();
+
+        statusMessage("Accounts successfully deserialized from file: " + filename);
+    }

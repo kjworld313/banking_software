@@ -33,6 +33,7 @@ class AccountManager{
       void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
       void serialize(std::string filename);
+      void deserialize(std::string filename);
 
 };
 
