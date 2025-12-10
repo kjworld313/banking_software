@@ -147,6 +147,11 @@
         std::ofstream outfile;
         outfile.open(filename);
 
+        // make sure file opened
+        if (!outfile.is_open()) {
+            throw std::runtime_error("Could not create file: " + filename);
+        }
+
         // loop through accounts and serialize them
         for (auto it = accounts.begin(); it != accounts.end(); it++){
             BankAccount* account = it->second; // get the account 
@@ -155,7 +160,7 @@
             outfile << serialized_account << '\n' << std::endl;
         }
 
-        // close file
+        // close files
         outfile.close();
     }
         // function that deserializes accounts from a file and adds them to AccountManager

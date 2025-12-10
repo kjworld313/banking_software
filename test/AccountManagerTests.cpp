@@ -5,7 +5,7 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Kj World 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Kj World 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
@@ -240,8 +240,22 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     AccountManager accounts;
 
     // act and assert
-    BOOST_CHECK_THROW(accounts.serialize("empty_file"), std::out_of_range);
+    BOOST_CHECK_THROW(accounts.serialize("test_file"), std::out_of_range);
 }
 
+/**
+ * Lines Covered: 142, 147, 148, 151, 152
+ * Branches Covered: 142F 151T
+ */
+
+ // test serialize function with file open failure (attempting to write to a directory)
+ BOOST_AUTO_TEST_CASE(file_failure_serialize_test) {
+    // arrange
+    AccountManager accounts;
+    accounts.addAccount("johndoe");
+
+    // act and assert
+    BOOST_CHECK_THROW(accounts.serialize("./test/"), std::runtime_error);
+ }
 
 BOOST_AUTO_TEST_SUITE_END()
