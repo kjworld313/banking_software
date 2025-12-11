@@ -5,7 +5,7 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01 Lucy Blaney 2"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
@@ -242,10 +242,10 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 
  /**
   * Lines Covered: 22, 27, 29, 34, 35, 37, 86, 87, 90, 93, 94, 144, 149, 150, 153, 155, 156, 157, 
-  * cont: 158, 159, 163, 171, 172, 177, 178, 180, 181, 183, 184, 185, 186, 190, 191, 193, 194, 197, 
-  * cont: 198, 199, 200, 201, 203, 206, 207, 209, 210, 211, 212, 215, 217, 218, 221, 222, 224, 218, 224, 227
-  * Branches Covered: 22F, 29F, 86T, 142F, 151T, 153T, 155T, 155F, 172F, 177T, 177F, 184T, 184F, 185F, 185T,
-  * cont: 193T, 193F, 206T, 206F, 209T, 209F, 211T
+  * cont: 158, 159, 163, 172, 173, 178, 178, 179, 181, 182, 184, 185, 191, 192, 194, 199, 200, 201, 202, 203
+  * cont: 206, 207, 210, 211, 214, 216, 217, 219, 221, 222, 223, 224, 227, 234, 235, 236, 239, 241
+  * Branches Covered: 22F, 29F, 86F, 142F, 151T, 153T, 155T, 155F, 172F, 178T, 178F, 185T, 185F, 185F, 186T,
+  * cont: 194F, 210T, 210F, 221T, 221F, 223T
   */
  // test serialize function, should be successful
  BOOST_AUTO_TEST_CASE(serialize_test) {
@@ -271,9 +271,9 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
  }
 
  /**
- * Lines Covered: 171, 172, 173, 175, 178, 179, 180, 181, 182, 184, 185, 186, 187, 190, 191, 192, 194, 198, 199, 200, 201, 
- * cont: 202, 204, 207, 208, 222, 223, 225, 228, 229, 84, 85, 86, 87, 88, 91, 94, 95, 98, 99, 100
- * Branches Covered: 173T, 186F, 207T, 210T, 218F
+ * Lines Covered: 86, 90, 93, 94, 172, 173, 178, 178, 179, 181, 182, 184, 185, 191, 192, 194, 199, 200, 201, 202, 203
+ * cont: 206, 207, 210, 211, 214, 216, 217, 219, 221, 222, 223, 224, 227, 234, 235, 236, 239, 241
+ * Branches Covered: 86F, 173F, 185F, 185T, 186F, 194F, 210T, 210F, 214T, 214F, 221T, 221F, 223T, 218F
  */
 // test deserialize function
 BOOST_AUTO_TEST_CASE(deserialize_test) {
@@ -281,8 +281,8 @@ BOOST_AUTO_TEST_CASE(deserialize_test) {
     std::string filename = "test_deserialize.txt";
     {
         std::ofstream out(filename);
-        out << "Savings,username1,Nima,Dahir,1000.50,0.05\n";
-        out << "Checking,username2,Lucy,Blaney,500.00\n";
+        out << "username1,savings,Nima,Dahir,1000.50,0.05\n";
+        out << "username2,checking,Lucy,Blaney,500.00,40.0,20.0,5.0\n";
     }
 
     // act, reate a new AccountManager and deserialize from file
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE(deserialize_test) {
 }
 
 /**
- * Lines Covered: 171, 172, 173, 174, 175
+ * Lines Covered: 172, 173, 174
  * Branches Covered: 173F
  */
 
@@ -316,16 +316,15 @@ BOOST_AUTO_TEST_CASE(deserialize_file_not_found) {
 }
 
 /**
- * Lines Covered: 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 35, 36, 38, 171, 172, 173, 175, 178, 179, 
- * cont: 180, 181, 182, 184, 185, 190, 191, 192, 194, 198, 199, 200, 201, 202, 204, 207, 208, 222, 223, 225, 228, 
- * cont: 229, 84, 85, 86, 87, 88, 91, 94, 95, 98, 99, 100
- * Branches Covered: 173T, 178T, 207T, 210F, 218F, 186F
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 86, 90, 93, 94, 172, 173, 178, 178, 179, 181, 182, 184, 185, 191, 192, 194, 199, 200, 201, 202, 203
+ * cont: 206, 207, 210, 211, 214, 216, 217, 219, 221, 222, 223, 224, 227, 234, 235, 236, 239, 241
+ * Branches Covered: 86F, 173F, 185F, 185T, 186F, 194F, 210T, 210F, 214T, 214F, 221T, 221F, 223T, 218F
  */
 BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
     AccountManager mgr;
 
     // add old account (will prompt for input;)
-    mgr.addAccount("olduser");  
+    mgr.addAccount("username2");  
 
     // check that there is 1 account (olduser)
     BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 1);
@@ -334,7 +333,7 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
     std::string filename = "overwrite.txt";
     {
         std::ofstream out(filename);
-        out << "Checking,username2,Lucy,Blaney,500.00\n";
+        out << "username2,checking,Lucy,Blaney,500.00\n";
     }
 
     // deserialize from file (should remove old account)

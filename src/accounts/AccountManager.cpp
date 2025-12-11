@@ -168,12 +168,13 @@
     }
     // function that deserializes accounts from a file and adds them to AccountManager
     void AccountManager::deserialize(std::string filename) {
+        // open a file to read from
         std::ifstream infile(filename);
-        if (!infile.is_open()) {
+        if (!infile.is_open()) { // handle unsuccessful file open
             throw std::runtime_error("Could not open file: " + filename);
         }
 
-        // delete existing accounts
+        // delete existing accounts and reset AccountManager details
         for (auto it = accounts.begin(); it != accounts.end(); ++it) {
             delete it->second;
         }
@@ -193,36 +194,49 @@
             if (parts.size() < 5) { // make sure correct number of arguments
                 continue;
             }
+
             // extract account details
-            std::string type = parts[0];
-            std::string username = parts[1];    
+            std::string username = parts[0];  
+            std::string type = parts[1];  
             std::string firstName = parts[2];
             std::string lastName = parts[3];
             double balance = std::stod(parts[4]);
 
+            // initialize and declare account pointers for operations
             BankAccount* account = nullptr;
+            BankAccount* base = new CheckingAccount("Temporary", "Base");
 
             // check account types and sort out parts
-            if (type == "Checking") {
-                account = new CheckingAccount(firstName, lastName, balance);
+            if (type == "checking") {
+                CheckingAccount* acc = new CheckingAccount(firstName, lastName, balance);
+
+                // check for number of checks written
+                for (int i = 5; i < parts.size(); i++) {
+                    // method below adds check history to check log
+                    acc->deposit(std::stod(parts[i]));
+                    acc->writeCheck(*base, std::stod(parts[i]));
+                }
+                account = acc;
             } 
-            else if (type == "Savings") {
+            else if (type == "savings") {
                 double rate = 0.0;
                 if (parts.size() >= 6) { // get interest rate
-                    double interestRate = std::stod(parts[5]);
+                    rate = std::stod(parts[5]);
                 }
                 
                 account = new SavingsAccount(firstName, lastName, balance, rate);
             } 
-            else {
+            else { // invalid type of account
                 continue; 
             }
+
             // put an account with the username into accounts
             accounts[username] = account;
             numAccounts++;
+            delete base; // release memory on heap
         }
-        infile.close();
         //close file
+        infile.close();
 
         statusMessage("Accounts successfully deserialized from file: " + filename);
     }
