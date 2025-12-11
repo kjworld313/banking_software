@@ -35,8 +35,8 @@ BOOST_AUTO_TEST_CASE(constructor_test2){
 }
 
 /*
- * Lines Tested: 4, 12, 13
- * Branches Tested: N/A
+ * Lines Covered: 4, 12, 13
+ * Branches Covered: N/A
 */
 BOOST_AUTO_TEST_CASE(accrue_interest_test){
     SavingsAccount* acc = new SavingsAccount("Lucy","Blaney", 100.0, 0.1);
@@ -44,6 +44,31 @@ BOOST_AUTO_TEST_CASE(accrue_interest_test){
     acc->accrueInterest();
 
     BOOST_CHECK_CLOSE(acc->getBalance(), 110.0, 0.01);
+}
+
+/**
+ * Lines Covered: 8, 17, 26
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(to_string_test) {
+    SavingsAccount* acc = new SavingsAccount("Lucy", "Blaney", 0.3);
+
+    BOOST_CHECK_EQUAL(acc->toString(), "Savings Account Balance: $" + std::to_string(acc->getBalance()) + 
+    ", Interest Rate: " + std::to_string(acc->getInterestRate()));
+}
+
+/**
+ * Lines Covered: 8,  21, 22
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(serialize_test) {
+    SavingsAccount* acc = new SavingsAccount("Lucy", "Blaney", 0.3);
+    std::string expected_string =  "lblaney,savings," + acc->getFirstName() + "," + acc->getLastName() + "," 
+    + std::to_string(acc->getBalance()) + ",0.300000";
+
+    std::string result = acc->serialize("lblaney");
+
+    BOOST_CHECK_EQUAL(result, expected_string);
 }
 
 

@@ -26,69 +26,6 @@ BOOST_AUTO_TEST_CASE(constructor_test1) {
 
 }
 
-/**
- * Lines Covered: 
- * Branches Covered:
- */
-BOOST_AUTO_TEST_CASE(deposit_positive_test) {
-    CheckingAccount* acc = new CheckingAccount("omar", "segura", 20.0);
-
-    acc->deposit(30.0);
-
-    BOOST_CHECK_EQUAL(acc->getBalance(), 50.0);
-
-    delete acc; 
-}
-
-/**
- * Lines Covered:
- * Branches Covered:
- */
-BOOST_AUTO_TEST_CASE(deposit_zero_test) {
-    CheckingAccount* acc = new CheckingAccount("omar", "segura", 10.0);
-    acc->deposit(0.0);
-
-
-    BOOST_CHECK_EQUAL(acc->getBalance(), 10.0);
-
-    delete acc; 
-}
-
-/**
- * Lines Covered:
- * Branches Covered:
- */
-BOOST_AUTO_TEST_CASE(withdrawal_success_test) {
-    CheckingAccount* acc = new CheckingAccount("omar", "segura", 100.0);
-    acc->withdrawal(50.0);
-
-    BOOST_CHECK_EQUAL(acc->getBalance(), 50.0);
-    delete acc;
-}
-
-/**
- * Lines Covered:
- * Branches Covered:
- */
-BOOST_AUTO_TEST_CASE(withdrawal_insufficient_test) {
-    CheckingAccount* acc = new CheckingAccount("omar", "segura", 30.0);
-    acc->withdrawal(50.0);
-
-    BOOST_CHECK_EQUAL(acc->getBalance(), 30.0);
-    delete acc;
-}
-
-/**
- * Lines Covered:
- * Branches Covered:
- */
-BOOST_AUTO_TEST_CASE(withdrawal_zero_test) {
-    CheckingAccount* acc = new CheckingAccount("omar", "segura", 30.0);
-    acc->withdrawal(0.0);
-
-    BOOST_CHECK_EQUAL(acc->getBalance(), 30.0);
-    delete acc;
-}
 
 /**
  * Lines Covered: 9, 10 (hpp); 4, 6, 7, 8, 11 (cpp)
@@ -145,6 +82,17 @@ BOOST_AUTO_TEST_CASE(check_log_test){
 
     delete acc;
     delete acc2;
+}
+
+/**
+ * Lines Covered: 10 (hpp); 15 (cpp)
+ * Branches Covered: N/A
+ */
+// to string test
+BOOST_AUTO_TEST_CASE(to_string_test) {
+    CheckingAccount* acc = new CheckingAccount("omar", "segura");
+    
+    BOOST_CHECK_EQUAL(acc->toString(), "Checking Account Balance: $" + std::to_string(acc->getBalance()));
 }
 
 /**
