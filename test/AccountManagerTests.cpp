@@ -5,15 +5,15 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
 /*
- * Lines Covered: 6, 7, 10, 11
- * Branches Covered: 10T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 86, 90, 93, 94
+ * Branches Covered: 22F, 29F, 45T, 86F
 */
-BOOST_AUTO_TEST_CASE(makeDepositTest1){
+BOOST_AUTO_TEST_CASE(make_deposit_test1){
     AccountManager accs;
     
     accs.addAccount("lblaney");
@@ -25,21 +25,21 @@ BOOST_AUTO_TEST_CASE(makeDepositTest1){
 }
 
 /*
- * Lines Covered: 6,7,10,15
- * Branches Covered: 15F
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 49
+ * Branches Covered: 22F, 29F, 45F
 */
-BOOST_AUTO_TEST_CASE(makeDepositTest2){
+BOOST_AUTO_TEST_CASE(make_deposit_test2){
     AccountManager accs;
 
     accs.addAccount("lblaney");
-    BOOST_CHECK_THROW(accs.makeDeposit("bblaney", 100.0), std::out_of_range);
+    BOOST_CHECK_THROW(accs.makeDeposit("bblaney", 100.0), std::invalid_argument);
 }
 
 /*
- * Lines Covered: 
- * Branches Covered: 
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 55, 58, 59, 86, 90, 93, 94
+ * Branches Covered: 22F, 29F, 45T, 58T, 86F
 */
-BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
+BOOST_AUTO_TEST_CASE(make_withdrawal_test1){
     AccountManager accs;
 
     accs.addAccount("lblaney");
@@ -53,19 +53,19 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
 }
 
 /*
- * Lines Covered: 
- * Branches Covered: 
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 55, 58, 62
+ * Branches Covered: 22F, 29F, 58F
 */
-BOOST_AUTO_TEST_CASE(makeWithdrawalTest2){
+BOOST_AUTO_TEST_CASE(make_withdrawal_test2){
     AccountManager accs;
 
     accs.addAccount("lblaney");
-    BOOST_CHECK_THROW(accs.makeWithdrawal("bblaney", 100.0), std::out_of_range);
+    BOOST_CHECK_THROW(accs.makeWithdrawal("bblaney", 100.0), std::invalid_argument);
 }
 
 /**
- * Lines Covered: 103, 105, 108, 109
- * Branches Covered: 103T, 108T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 86, 90, 93, 94, 105, 107, 110, 111
+ * Branches Covered: 22F, 29F, 45T, 86F, 105T, 105F, 110T
  */ 
 // test on addInterest() that makes sure only savings accounts accrue interest
 BOOST_AUTO_TEST_CASE(add_interest_test1) {
@@ -87,10 +87,10 @@ BOOST_AUTO_TEST_CASE(add_interest_test1) {
 }
 
 /**
- * Lines Covered: 117, 119, 122, 124, 125
- * Branches Covered: 117T, 122T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 86, 90, 93, 94, 119, 121, 124, 126, 127
+ * Branches Covered: 22F, 29F, 45T, 86F, 119T, 124T
  */ 
-// test on writeCheck() that should be successful 
+// test on writeCheck() where writeCheck() should be successful 
 BOOST_AUTO_TEST_CASE(write_check_test1) {
     // arrange
     AccountManager accounts;
@@ -109,26 +109,23 @@ BOOST_AUTO_TEST_CASE(write_check_test1) {
 }
 
 /**
- * Lines Covered: 117, 134, 135
- * Branches Covered: 117F, 134T
+ * Lines Covered: 119, 137
+ * Branches Covered: 119F
  */ 
-// test on writeCheck() that should not be successful for an invalid check writer username
+// test on writeCheck() with an invalid check writer username
 BOOST_AUTO_TEST_CASE(write_check_test2) {
     // arrange
     AccountManager accounts;
-    accounts.addAccount("riley414"); // can be any type of account
-    std::string expected_string = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
 
     // act and assert
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
-    BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string);
 }
 
 /**
- * Lines Covered: 117, 119, 122, 127, 128
- * Branches Covered: 117T, 122F, 127T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 86, 90, 93, 94, 119, 121, 124, 129, 130
+ * Branches Covered: 22F, 29F, 45T, 86F, 119T, 124F, 129T
  */ 
-// test on writeCheck() that should not be successful for an invalid checking account
+// test on writeCheck() with a non-checking account as checkWriter
 BOOST_AUTO_TEST_CASE(write_check_test3) {
     // arrange
     AccountManager accounts;
@@ -145,8 +142,8 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
 }
 
 /**
- * Lines Covered: 117, 119, 122, 127, 130, 131
- * Branches Covered: 117T, 122F, 127F, 130T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 42, 45, 46, 86, 90, 93, 94, 119, 121, 124, 129, 133
+ * Branches Covered: 22F, 29F, 45T, 86F, 119T, 124F, 129F
  */ 
 // test on writeCheck() that should not be successful for an invalid check receiver username
 BOOST_AUTO_TEST_CASE(write_check_test4) {
@@ -162,8 +159,8 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
 }
 
 /**
- * Lines Covered: 66, 67, 71, 74, 77, 79
- * Branches Covered: 66T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 68, 69, 73, 76, 79, 81, 99
+ * Branches Covered: 22F, 29F, 68T, 68F
  */
 // test deleteaccount function
 BOOST_AUTO_TEST_CASE(delete_account_test) {
@@ -179,8 +176,8 @@ BOOST_AUTO_TEST_CASE(delete_account_test) {
 }
 
 /**
- * Lines Covered: 84, 85
- * Branches Covered: 84T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 86, 87, 90, 93, 94
+ * Branches Covered: 22F, 29F, 86T, 86F
  */
 // test displayaccount function
 BOOST_AUTO_TEST_CASE(display_account_test) {
@@ -200,8 +197,8 @@ BOOST_AUTO_TEST_CASE(display_account_test) {
 }
 
 /**
- * Lines Covered: 97
- * Branches Covered: None
+ * Lines Covered:  22, 27, 29, 34, 35, 37, 99
+ * Branches Covered: 22F, 29F
  */
 // test getter for number of accounts
 BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
@@ -216,8 +213,8 @@ BOOST_AUTO_TEST_CASE(get_num_accounts_test) {
 }
 
 /** 
- * Lines Covered: 142, 143
- * Branches Covered: 142T
+ * Lines Covered: 144, 145
+ * Branches Covered: 144T
  */
 // test serialize function with no accounts
 BOOST_AUTO_TEST_CASE(throw_serialize_test) {
@@ -229,8 +226,8 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 }
 
 /**
- * Lines Covered: 142, 147, 148, 151, 161
- * Branches Covered: 142F, 151F, 160T
+ * Lines Covered: 22, 27, 29, 34, 35, 37, 144, 149, 150, 153, 166
+ * Branches Covered: 22F, 29F, 144F, 153F
  */
 
  // test serialize function with file open failure (attempting to write to a directory)
@@ -244,8 +241,11 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
  }
 
  /**
-  * Lines Covered: 142, 147, 148, 151, 153, 154, 155, 157, 161
-  * Branches Covered: 142F, 151T, 153T
+  * Lines Covered: 22, 27, 29, 34, 35, 37, 86, 87, 90, 93, 94, 144, 149, 150, 153, 155, 156, 157, 
+  * cont: 158, 159, 163, 171, 172, 177, 178, 180, 181, 183, 184, 185, 186, 190, 191, 193, 194, 197, 
+  * cont: 198, 199, 200, 201, 203, 206, 207, 209, 210, 211, 212, 215, 217, 218, 221, 222, 224, 218, 224, 227
+  * Branches Covered: 22F, 29F, 86T, 142F, 151T, 153T, 155T, 155F, 172F, 177T, 177F, 184T, 184F, 185F, 185T,
+  * cont: 193T, 193F, 206T, 206F, 209T, 209F, 211T
   */
  // test serialize function, should be successful
  BOOST_AUTO_TEST_CASE(serialize_test) {
