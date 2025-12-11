@@ -10,6 +10,7 @@
     }
 
     AccountManager::~AccountManager(){
+        // go through accounts and free memory
         for (auto it = accounts.begin(); it != accounts.end(); ++it){
             delete it->second;
         }
@@ -22,12 +23,15 @@
             throw std::invalid_argument("Username already exists.");
         }
 
-        BankAccount* accs = make_account();
+        // make account
+        BankAccount* acc = make_account();
 
-        if(accs == nullptr){
+        if(acc == nullptr){ // check if account creation failed
             throw std::runtime_error("Account creation failed.");
         }
-        accounts[username] = accs;
+
+        // add account to accounts
+        accounts[username] = acc;
         numAccounts++;
 
         statusMessage("Account successfully created for user: " + username);
@@ -41,9 +45,8 @@
         if (it != accounts.end()){
             (it->second)->deposit(amount);
         }
-    
         else{
-            throw std::out_of_range("Username does not exist.");
+            throw std::invalid_argument("Username does not exist.");
         }
     }
 
@@ -55,9 +58,8 @@
         if (it != accounts.end()){
             (it->second)->withdrawal(amount);
         }
-    
         else{
-            throw std::out_of_range("Username does not exist.");
+            throw std::invalid_argument("Username does not exist.");
         }
     }
 
@@ -180,7 +182,7 @@
 
         std::string line;
         while (std::getline(infile, line)) {
-            if (line.empty()) {
+            if (line.empty()) { // make sure line is not empty
                 continue; 
             }
 
@@ -188,7 +190,7 @@
             std::vector<std::string> parts;
             boost::split(parts, line, boost::is_any_of(","));
 
-            if (parts.size() < 5) {
+            if (parts.size() < 5) { // make sure correct number of arguments
                 continue;
             }
             // extract account details
@@ -200,13 +202,14 @@
 
             BankAccount* account = nullptr;
 
+            // check account types and sort out parts
             if (type == "Checking") {
                 account = new CheckingAccount(firstName, lastName, balance);
             } 
             else if (type == "Savings") {
                 double rate = 0.0;
-                if (parts.size() >= 6) {
-                double interestRate = std::stod(parts[5]);
+                if (parts.size() >= 6) { // get interest rate
+                    double interestRate = std::stod(parts[5]);
                 }
                 
                 account = new SavingsAccount(firstName, lastName, balance, rate);
@@ -214,6 +217,7 @@
             else {
                 continue; 
             }
+            // put an account with the username into accounts
             accounts[username] = account;
             numAccounts++;
         }
