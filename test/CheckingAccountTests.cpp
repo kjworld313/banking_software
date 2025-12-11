@@ -26,6 +26,7 @@ BOOST_AUTO_TEST_CASE(constructor_test1) {
 
 }
 
+
 /**
  * Lines Covered: 9, 10 (hpp); 4, 6, 7, 8, 11 (cpp)
  * Branches Covered: 6T
