@@ -148,6 +148,17 @@ BOOST_AUTO_TEST_CASE(check_log_test){
 }
 
 /**
+ * Lines Covered: 10 (hpp); 15 (cpp)
+ * Branches Covered: N/A
+ */
+// to string test
+BOOST_AUTO_TEST_CASE(to_string_test) {
+    CheckingAccount* acc = new CheckingAccount("omar", "segura");
+    
+    BOOST_CHECK_EQUAL(acc->toString(), "Checking Account Balance: $" + std::to_string(acc->getBalance()));
+}
+
+/**
  * Lines Covered: 9, 10 (hpp); 4, 6, 11, 19, 20, 22, 23, 25(cpp)
  * Branches Covered: 6T, 22T, 22F
  */
