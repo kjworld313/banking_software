@@ -270,4 +270,83 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     }
  }
 
+ /**
+ * Lines Covered: 171, 172, 173, 175, 178, 179, 180, 181, 182, 184, 185, 186, 187, 190, 191, 192, 194, 198, 199, 200, 201, 
+ * cont: 202, 204, 207, 208, 222, 223, 225, 228, 229, 84, 85, 86, 87, 88, 91, 94, 95, 98, 99, 100
+ * Branches Covered: 173T, 186F, 207T, 210T, 218F
+ */
+// test deserialize function
+BOOST_AUTO_TEST_CASE(deserialize_test) {
+    // arrange, create a temporary file with a savings and a checking account
+    std::string filename = "test_deserialize.txt";
+    {
+        std::ofstream out(filename);
+        out << "Savings,username1,Nima,Dahir,1000.50,0.05\n";
+        out << "Checking,username2,Lucy,Blaney,500.00\n";
+    }
+
+    // act, reate a new AccountManager and deserialize from file
+    AccountManager mgr;
+    mgr.deserialize(filename);
+
+    // assert, check number of accounts
+    BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 2);
+
+    // assert, check deserialized SavingsAccount 
+    std::string expected1 = "First Name: Nima\nLast Name: Dahir\nBalance: $1000.500000\n";
+    BOOST_CHECK_EQUAL(mgr.displayAccount("username1"), expected1);
+
+    // assert, check deserialized CheckingAccount 
+    std::string expected2 = "First Name: Lucy\nLast Name: Blaney\nBalance: $500.000000\n";
+    BOOST_CHECK_EQUAL(mgr.displayAccount("username2"), expected2);
+
+    // clean up the temporary file
+    std::remove(filename.c_str());
+}
+
+/**
+ * Lines Covered: 171, 172, 173, 174, 175
+ * Branches Covered: 173F
+ */
+
+// test for file not found
+BOOST_AUTO_TEST_CASE(deserialize_file_not_found) {
+    AccountManager mgr;
+    BOOST_CHECK_THROW(mgr.deserialize("nonexistent_file.txt"), std::runtime_error);
+}
+
+/**
+ * Lines Covered: 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 35, 36, 38, 171, 172, 173, 175, 178, 179, 
+ * cont: 180, 181, 182, 184, 185, 190, 191, 192, 194, 198, 199, 200, 201, 202, 204, 207, 208, 222, 223, 225, 228, 
+ * cont: 229, 84, 85, 86, 87, 88, 91, 94, 95, 98, 99, 100
+ * Branches Covered: 173T, 178T, 207T, 210F, 218F, 186F
+ */
+BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
+    AccountManager mgr;
+
+    // add old account (will prompt for input;)
+    mgr.addAccount("olduser");  
+
+    // check that there is 1 account (olduser)
+    BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 1);
+
+    // create temporary file to overwrite accounts
+    std::string filename = "overwrite.txt";
+    {
+        std::ofstream out(filename);
+        out << "Checking,username2,Lucy,Blaney,500.00\n";
+    }
+
+    // deserialize from file (should remove old account)
+    mgr.deserialize(filename);
+
+    // after deserialization, old account should be removed
+    BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 1); 
+    std::string expected = "First Name: Lucy\nLast Name: Blaney\nBalance: $500.000000\n";
+    BOOST_CHECK_EQUAL(mgr.displayAccount("username2"), expected);
+
+    // clean up temporary file
+    std::remove(filename.c_str());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
