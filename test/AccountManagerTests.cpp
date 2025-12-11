@@ -10,8 +10,8 @@
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
 /*
- * Lines Covered: 6, 7, 10, 11
- * Branches Covered: 10T
+ * Lines Covered: 8,9,21,25, 27, 30, 31,33, 38, 41,42,84, 88, 91,92
+ * Branches Covered: 41T
 */
 BOOST_AUTO_TEST_CASE(makeDepositTest1){
     AccountManager accs;
@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_CASE(makeDepositTest1){
 }
 
 /*
- * Lines Covered: 6,7,10,15
- * Branches Covered: 15F
+ * Lines Covered: 8,9,21,25,27,30,31,33,, 38, 41,46
+ * Branches Covered: 45
 */
 BOOST_AUTO_TEST_CASE(makeDepositTest2){
     AccountManager accs;
@@ -36,8 +36,8 @@ BOOST_AUTO_TEST_CASE(makeDepositTest2){
 }
 
 /*
- * Lines Covered: 
- * Branches Covered: 
+ * Lines Covered: 8,9,21,25, 27, 30, 31,33, 38, 41,42,52,55,56,84, 88, 91,92
+ * Branches Covered: 55T
 */
 BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
     AccountManager accs;
@@ -53,8 +53,8 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest1){
 }
 
 /*
- * Lines Covered: 
- * Branches Covered: 
+ * Lines Covered: 8,9,21,25, 27, 30, 31,33, 52,55,60 
+ * Branches Covered: 21F, 27F, 55F, 59T
 */
 BOOST_AUTO_TEST_CASE(makeWithdrawalTest2){
     AccountManager accs;
@@ -64,8 +64,8 @@ BOOST_AUTO_TEST_CASE(makeWithdrawalTest2){
 }
 
 /**
- * Lines Covered: 90, 102, 105, 106
- * Branches Covered: 90T, 105T
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42,103,105,108,109,84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 108T
  */ 
 // test on addInterest() that should have successful output
 BOOST_AUTO_TEST_CASE(add_interest_test1) {
@@ -83,8 +83,8 @@ BOOST_AUTO_TEST_CASE(add_interest_test1) {
 }
 
 /**
- * Lines Covered: 90, 102, 105
- * Branches Covered: 90T, 105F
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42,103,105,108,84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 108F
  */ 
 // test on addInterest() that should not accrue interest on a non-savings account
 BOOST_AUTO_TEST_CASE(add_interest_test2) {
@@ -102,8 +102,8 @@ BOOST_AUTO_TEST_CASE(add_interest_test2) {
 }
 
 /**
- * Lines Covered: 116, 118, 121, 123, 124, 126, 129, 133
- * Branches Covered: 116T, 121T, 126F, 129F, 133F
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42,117, 119, 122,124,125,127, 84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 84F, 117T, 122T, 127F
  */ 
 // test on writeCheck() that should be successful 
 BOOST_AUTO_TEST_CASE(write_check_test1) {
@@ -124,8 +124,8 @@ BOOST_AUTO_TEST_CASE(write_check_test1) {
 }
 
 /**
- * Lines Covered: 116, 133, 134
- * Branches Covered: 116F, 133T
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42, 117, 134, 135, 84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 84F, 117F, 134T
  */ 
 // test on writeCheck() that should not be successful for an invalid check writer username
 BOOST_AUTO_TEST_CASE(write_check_test2) {
@@ -140,8 +140,8 @@ BOOST_AUTO_TEST_CASE(write_check_test2) {
 }
 
 /**
- * Lines Covered: 116, 118, 121, 126, 127
- * Branches Covered: 116T, 121F, 126T
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42,117, 119, 122, 127, 128, 84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 84F,117T, 122F, 127T
  */ 
 // test on writeCheck() that should not be successful for an invalid checking account
 BOOST_AUTO_TEST_CASE(write_check_test3) {
@@ -160,8 +160,8 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
 }
 
 /**
- * Lines Covered: 116,118, 121, 126, 129, 130
- * Branches Covered: 116T, 121F, 126F, 129T
+ * Lines Covered: 8,9,21,25,27,30,31,33,38,41,42,117,119, 122, 127, 130, 131,84,88,91,92
+ * Branches Covered: 21F, 27F, 41T, 84F, 117T, 122F, 127F, 130T
  */ 
 // test on writeCheck() that should not be successful for an invalid check receiver username
 BOOST_AUTO_TEST_CASE(write_check_test4) {
@@ -177,11 +177,11 @@ BOOST_AUTO_TEST_CASE(write_check_test4) {
 }
 
 /**
- * Lines Covered: 59, 61, 64, 67, 70, 73, 75
- * Branches Covered: 61T, 61F
+ * Lines Covered: 8,9,21,25,27,30,31,33,66,71,74,77,79,97
+ * Branches Covered: 61T
  */
 // test deleteaccount function
-BOOST_AUTO_TEST_CASE(delete_account_test) {
+BOOST_AUTO_TEST_CASE(delete_account_test1) {
     AccountManager accounts;
     accounts.addAccount("user1"); // assume make_account creates a valid checkingaccount
 
@@ -189,7 +189,16 @@ BOOST_AUTO_TEST_CASE(delete_account_test) {
     BOOST_CHECK_NO_THROW(accounts.deleteAccount("user1"));
     BOOST_CHECK_EQUAL(accounts.getNumAccounts(), 0);
 
-    // delete non-existent account
+}
+
+/**
+ * Lines Covered: 8,9,21,25,27,30,31,33,66,67,71,74,77,79
+ * Branches Covered: 61T
+ */
+// test deleteaccount function
+BOOST_AUTO_TEST_CASE(delete_account_test2){
+    AccountManager accounts;
+
     BOOST_CHECK_THROW(accounts.deleteAccount("user1"), std::invalid_argument);
 }
 
