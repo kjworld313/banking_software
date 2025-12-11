@@ -71,6 +71,27 @@ BOOST_AUTO_TEST_CASE(serialize_test) {
     BOOST_CHECK_EQUAL(result, expected_string);
 }
 
+/**
+ * Lines Covered: 8, 26
+ * Branches Covered: N/A
+ */
+ BOOST_AUTO_TEST_CASE(get_interest_rate_test){
+    SavingsAccount* acc = new SavingsAccount("Lucy", "Blaney", 0.3);
+    
+    BOOST_CHECK_EQUAL(acc->getInterestRate(), 0.3);
+}
+
+/**
+ * Lines Covered: 8, 26, 30
+ * Branches Covered: N/A
+ */
+BOOST_AUTO_TEST_CASE(set_interest_rate_test){
+    SavingsAccount* acc = new SavingsAccount("Lucy", "Blaney", 0.3);
+
+    acc->setInterestRate(0.5);
+
+    BOOST_CHECK_EQUAL(acc->getInterestRate(), 0.5);
+}
 
 
 BOOST_AUTO_TEST_SUITE_END()
