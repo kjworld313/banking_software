@@ -3,12 +3,12 @@
 #include <stdexcept>
 
 // function that prints a status message
-void statusMessage(const std::string status) {
+void statusMessage(const std::string &status) {
     std::cout << "[STATUS]: " + status << std::endl;
 }
 
 // function that prints an error message
-void errorMessage(const std::string error) {
+void errorMessage(const std::string &error) {
     std::cout << "[ERROR]: " + error << std::endl;
 }
 
@@ -78,7 +78,7 @@ BankAccount* make_account() {
 double getDouble(const std::string &prompt) {
     std::cout << prompt;
     double value;
-    if (std::cin >> value) {
+    if (std::cin >> value) { // make sure input is valid
         return value;
     } else {
         std::cin.clear(); 

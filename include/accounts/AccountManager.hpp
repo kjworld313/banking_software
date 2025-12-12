@@ -11,30 +11,28 @@
 #include "SavingsAccount.hpp"
 
 class AccountManager{
-    private: 
-      int numAccounts;
-      std::map<std::string, BankAccount*> accounts;
+public:
+    AccountManager();
+    ~AccountManager();
 
-    public:
-      AccountManager();
+    void addAccount(std::string username);
 
-      ~AccountManager();
+    void makeDeposit(std::string username, double amount);
+    void makeWithdrawal(std::string username, double amount);
 
-      void addAccount(std::string username);
+    void deleteAccount(std::string username);
+    std::string displayAccount(std::string username);
+    int getNumAccounts() const;
 
-      void makeDeposit(std::string username, double amount);
-      void makeWithdrawal(std::string username, double amount);
+    void addInterest();
+    void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
 
-      void deleteAccount(std::string username);
-      std::string displayAccount(std::string username);
-      int getNumAccounts() const;
+    void serialize(std::string filename);
+    void deserialize(std::string filename);
 
-      void addInterest();
-      void writeCheck(std::string checkWriter, std::string checkReceiver, double amount);
-
-      void serialize(std::string filename);
-      void deserialize(std::string filename);
-
+private: 
+    int numAccounts;
+    std::map<std::string, BankAccount*> accounts;
 };
 
 #endif

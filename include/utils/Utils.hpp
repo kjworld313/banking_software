@@ -3,10 +3,10 @@
 #include "SavingsAccount.hpp"
 
 // function that prints a status message
-void statusMessage(const std::string status);
+void statusMessage(const std::string &status);
 
 // function that prints an error message
-void errorMessage(const std::string error);
+void errorMessage(const std::string &error);
 
 // function that prints option prompt to user, returns option value
 std::string getOption();
