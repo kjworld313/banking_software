@@ -23,7 +23,6 @@ BOOST_AUTO_TEST_CASE(constructor_test1) {
     BOOST_CHECK_EQUAL(acc2->getBalance(), 0.0);
 
     delete acc; 
-
 }
 
 
