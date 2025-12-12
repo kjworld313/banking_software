@@ -13,7 +13,6 @@ int main(){
 
     bool finished = false;
     AccountManager accounts; 
-    std::map<std::string, BankAccount*> accts;
 
     while(!finished){
 
@@ -76,14 +75,6 @@ int main(){
         else{ // invalid input
             errorMessage("I'm sorry, that is not a valid choice.");
         }
-    }
-
-    // loop through map and delete all accounts
-    std::map<std::string, BankAccount*>::iterator it;
-
-    for (it = accts.begin(); it != accts.end(); it++){
-        BankAccount *acct = it->second;
-        delete acct;
     }
 
     return 0;
