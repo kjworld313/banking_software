@@ -14,8 +14,15 @@ int main(){
     bool finished = false;
     AccountManager accounts; 
 
-    while(!finished){
+    // deserialize if file exists
+    try {
+        accounts.deserialize("..src/accounts.csv");
+    }
+    catch (const std::exception &e) {
+        errorMessage(e.what());
+    }
 
+    while(!finished){
         //using getOption instead of print statements in starter code
         std::string input_string = getOption();
         
@@ -130,6 +137,14 @@ int main(){
         else{ // invalid input
             errorMessage("I'm sorry, that is not a valid choice.");
         }
+    }
+
+    // serialize accounts
+    try {
+        accounts.serialize("../src/accounts.csv");
+    }
+    catch (const std::exception &e) {
+        errorMessage(e.what());
     }
 
     return 0;
