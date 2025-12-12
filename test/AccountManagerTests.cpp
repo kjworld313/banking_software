@@ -350,7 +350,7 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
 // invalid lines deserialize test
 /*
  * Lines Covered: 186, 187, 194, 195, 230
- * Branches Covered: 186T, 194T
+ * Branches Covered: 186T, 186F, 194F, 194T, 210F, 221F
  */
 BOOST_AUTO_TEST_CASE(deserialize_invalid_lines_test) {
     std::string filename = "bad_deserialize.csv";
