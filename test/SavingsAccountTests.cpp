@@ -7,10 +7,8 @@ BOOST_AUTO_TEST_SUITE(savings_account_suite, * boost::unit_test::timeout(10))
 
 
 /*
-
  * Lines covered: 4, 26
  * branches covered: N/A
-
 */
 BOOST_AUTO_TEST_CASE(constructor_test1){
     SavingsAccount* acc = new SavingsAccount("Lucy","Blaney", 100.0, 0.5);
