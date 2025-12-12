@@ -11,7 +11,7 @@ Our project is a banking software that tracks accounts and their account details
 ## Program Instructions
 In order to run the program,  make a 'build' directory in the root of the project, move to the build directory, and run 'cmake ..' in the terminal. Once the build file generator has finished processing, run 'make' and use the following command line to run the program:
 ./src/bank_app. The main program prompts a menu of options for the user to select from - program will inform user of invalid input.
-When depositing, withdrawing, or writing a check only enter valid amounts (integers or decimals, no strings or other non-number characters) to ensure success of operations. Program serializes account system data at end of process and deserializes at the beginning of each software run to extract pre-existing system data.
+When depositing, withdrawing, or writing a check only enter valid amounts (integers or decimals, no strings or other non-number characters) to ensure success of operations. Program serializes account system data at end of process and deserializes at the beginning of each software run to extract pre-existing system data. Note: serializing can take a few seconds, please be patient!
 
 ## Testing
 To test this program, make a 'build' directory in the root of the project, move to the build directory, and run 'cmake ..' in the terminal. Once the build file generator has finished processing, run 'make' and use the following command line to test the program:
