@@ -96,8 +96,8 @@ BOOST_AUTO_TEST_CASE(to_string_test) {
 }
 
 /**
- * Lines Covered: 9, 10 (hpp); 4, 6, 11, 19, 20, 23, 24, 26 (cpp)
- * Branches Covered: 6T, 22T, 22F
+ * Lines Covered: 9, 10 (hpp); 4, 6, 11, 20, 21, 24, 25, 27 (cpp)
+ * Branches Covered: 6T, 24T, 24F
  */
 
  BOOST_AUTO_TEST_CASE(serialize_test) {
