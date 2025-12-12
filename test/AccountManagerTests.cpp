@@ -4,9 +4,6 @@
 #include <string>
 #include "AccountManager.hpp"
 
-// note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User One 2 User Two 2 User Two 2 User Three 1 0.01 User Three 1 0.01 Lucy Blaney 2"
-
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
 /*
