@@ -4,9 +4,6 @@
 #include <string>
 #include "AccountManager.hpp"
 
-// note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User One 2 User Two 2 User Two 2 User Three 1 0.01 User Three 1 0.01 Lucy Blaney 2"
-
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
 /*
@@ -222,7 +219,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     AccountManager accounts;
 
     // act and assert
-    BOOST_CHECK_THROW(accounts.serialize("test_file.txt"), std::out_of_range);
+    BOOST_CHECK_THROW(accounts.serialize("test_file.csv"), std::out_of_range);
 }
 
 /**
@@ -259,8 +256,8 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     }
 
     // act - serialize and deserialize
-    accounts.serialize("test_file.txt");
-    accounts.deserialize("test_file.txt"); // get information back
+    accounts.serialize("test_file.csv");
+    accounts.deserialize("test_file.csv"); // get information back
     
     // assert, make sure the deserialized accounts are equivalent to the expected accounts
     for (int i = 1; i < accounts.getNumAccounts(); i++) {
@@ -277,7 +274,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 // test deserialize function
 BOOST_AUTO_TEST_CASE(deserialize_test) {
     // arrange, create a temporary file with a savings and a checking account
-    std::string filename = "test_deserialize.txt";
+    std::string filename = "test_deserialize.csv";
     {
         std::ofstream out(filename);
         out << "username1,savings,Nima,Dahir,1000.50,0.05\n";
@@ -311,7 +308,7 @@ BOOST_AUTO_TEST_CASE(deserialize_test) {
 // test for file not found
 BOOST_AUTO_TEST_CASE(deserialize_file_not_found) {
     AccountManager mgr;
-    BOOST_CHECK_THROW(mgr.deserialize("nonexistent_file.txt"), std::runtime_error);
+    BOOST_CHECK_THROW(mgr.deserialize("nonexistent_file.csv"), std::runtime_error);
 }
 
 /**
@@ -329,7 +326,7 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
     BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 1);
 
     // create temporary file to overwrite accounts
-    std::string filename = "overwrite.txt";
+    std::string filename = "overwrite.csv";
     {
         std::ofstream out(filename);
         out << "username2,checking,Lucy,Blaney,500.00\n";
@@ -350,10 +347,10 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
 // invalid lines deserialize test
 /*
  * Lines Covered: 186, 187, 194, 195, 230
- * Branches Covered: 186T, 194T
+ * Branches Covered: 186T, 186F, 194F, 194T, 210F, 221F
  */
 BOOST_AUTO_TEST_CASE(deserialize_invalid_lines_test) {
-    std::string filename = "bad_deserialize.txt";
+    std::string filename = "bad_deserialize.csv";
     {
         std::ofstream out(filename);
         out << "\n";                                  // empty line

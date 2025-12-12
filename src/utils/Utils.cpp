@@ -14,6 +14,7 @@ void errorMessage(const std::string &error) {
 
 // prints option prompt to user, returns option value
 std::string getOption(){
+    // menu of options
     std::cout<<"Options"<<std::endl;
     std::cout<<"0) Exit"<<std::endl;
     std::cout<<"1) Make account"<<std::endl;
@@ -24,6 +25,7 @@ std::string getOption(){
     std::cout<<"6) Write a check"<<std::endl;
     std::cout<<"What would you like to do (Input single number):"<<std::endl;
 
+    // get user input
     std::string input_string;
     std::cin >> input_string;
 
@@ -32,9 +34,13 @@ std::string getOption(){
 
 // function that takes a prompt and returns user input
 std::string getString(const std::string &prompt){
+    // print prompt
     std::cout << prompt;
+
+    // get user input
     std::string input;
     std::cin >> input;
+
     return input;
 }
 
