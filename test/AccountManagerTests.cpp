@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     AccountManager accounts;
 
     // act and assert
-    BOOST_CHECK_THROW(accounts.serialize("test_file.txt"), std::out_of_range);
+    BOOST_CHECK_THROW(accounts.serialize("test_file.csv"), std::out_of_range);
 }
 
 /**
@@ -259,8 +259,8 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
     }
 
     // act - serialize and deserialize
-    accounts.serialize("test_file.txt");
-    accounts.deserialize("test_file.txt"); // get information back
+    accounts.serialize("test_file.csv");
+    accounts.deserialize("test_file.csv"); // get information back
     
     // assert, make sure the deserialized accounts are equivalent to the expected accounts
     for (int i = 1; i < accounts.getNumAccounts(); i++) {
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 // test deserialize function
 BOOST_AUTO_TEST_CASE(deserialize_test) {
     // arrange, create a temporary file with a savings and a checking account
-    std::string filename = "test_deserialize.txt";
+    std::string filename = "test_deserialize.csv";
     {
         std::ofstream out(filename);
         out << "username1,savings,Nima,Dahir,1000.50,0.05\n";
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_CASE(deserialize_test) {
 // test for file not found
 BOOST_AUTO_TEST_CASE(deserialize_file_not_found) {
     AccountManager mgr;
-    BOOST_CHECK_THROW(mgr.deserialize("nonexistent_file.txt"), std::runtime_error);
+    BOOST_CHECK_THROW(mgr.deserialize("nonexistent_file.csv"), std::runtime_error);
 }
 
 /**
@@ -329,7 +329,7 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
     BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 1);
 
     // create temporary file to overwrite accounts
-    std::string filename = "overwrite.txt";
+    std::string filename = "overwrite.csv";
     {
         std::ofstream out(filename);
         out << "username2,checking,Lucy,Blaney,500.00\n";
@@ -353,7 +353,7 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
  * Branches Covered: 186T, 194T
  */
 BOOST_AUTO_TEST_CASE(deserialize_invalid_lines_test) {
-    std::string filename = "bad_deserialize.txt";
+    std::string filename = "bad_deserialize.csv";
     {
         std::ofstream out(filename);
         out << "\n";                                  // empty line
