@@ -15,7 +15,7 @@ When depositing, withdrawing, or writing a check only enter valid amounts (integ
 
 ## Testing
 To test this program, make a 'build' directory in the root of the project and run 'cmake ..' in the terminal. Once the build file generator has finished processing, run 'make' and use the following command line to test the program:
-./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01 Lucy Blaney 2"
+./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User One 2 User Two 2 User Two 2 User Three 1 0.01 User Three 1 0.01 Lucy Blaney 2"
 
 ## Authors and acknowledgment
 Contributors: Nima Dahir, Katelynn Olson, Omar Segura, Lucy Blaney

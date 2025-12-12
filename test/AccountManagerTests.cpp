@@ -5,7 +5,7 @@
 #include "AccountManager.hpp"
 
 // note the space before the '.' indicating root directory. do not include space
-// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User Two 2 User Three 1 0.01 User One 2 User Two 2 User Three 1 0.01 Lucy Blaney 2"
+// ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User One 2 User Two 2 User Two 2 User Three 1 0.01 User Three 1 0.01 Lucy Blaney 2"
 
 BOOST_AUTO_TEST_SUITE(account_manager_suite, * boost::unit_test::timeout(10))
 
@@ -114,10 +114,10 @@ BOOST_AUTO_TEST_CASE(write_check_test1) {
  */ 
 // test on writeCheck() with an invalid check writer username
 BOOST_AUTO_TEST_CASE(write_check_test2) {
-    // arrange
+    // arrange, make an AccountManager object
     AccountManager accounts;
 
-    // act and assert
+    // act and assert, make sure write check throws an exception for failing condition
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
 }
 
@@ -127,7 +127,7 @@ BOOST_AUTO_TEST_CASE(write_check_test2) {
  */ 
 // test on writeCheck() with a non-checking account as checkWriter
 BOOST_AUTO_TEST_CASE(write_check_test3) {
-    // arrange
+    // arrange, add a check writer and check receiver + expected strings
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must not be checking account
     accounts.addAccount("riley414"); // can be any type of account
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
     std::string expected_string1 = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
     std::string expected_string2 = "First Name: Riley\nLast Name: Puppy\nBalance: $0.000000\n";
 
-    // act and assert
+    // act and assert, make sure display account returns strings as expected
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
     BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string1);
     BOOST_CHECK_EQUAL(accounts.displayAccount("riley414"), expected_string2);
@@ -147,13 +147,13 @@ BOOST_AUTO_TEST_CASE(write_check_test3) {
  */ 
 // test on writeCheck() that should not be successful for an invalid check receiver username
 BOOST_AUTO_TEST_CASE(write_check_test4) {
-    // arrange
+    // arrange, make a checking account for writing a succesful check
     AccountManager accounts;
     accounts.addAccount("kjworld313"); // must be checking account
     accounts.makeDeposit("kjworld313", 10.00);
     std::string expected_string = "First Name: Kj\nLast Name: World\nBalance: $10.000000\n";
 
-    // act and assert
+    // act and assert, use display account to ensure writing check reduced check writer balance
     BOOST_CHECK_THROW(accounts.writeCheck("kjworld313", "riley414", 10.00), std::invalid_argument);
     BOOST_CHECK_EQUAL(accounts.displayAccount("kjworld313"), expected_string);
 }
@@ -232,11 +232,11 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
 
  // test serialize function with file open failure (attempting to write to a directory)
  BOOST_AUTO_TEST_CASE(file_failure_serialize_test) {
-    // arrange
+    // arrange, make an account (can be any type)
     AccountManager accounts;
     accounts.addAccount("johndoe");
 
-    // act and assert
+    // act and assert, make sure accounts does not serialize to an invalid filename
     BOOST_CHECK_THROW(accounts.serialize("./test/"), std::runtime_error);
  }
 
@@ -249,21 +249,20 @@ BOOST_AUTO_TEST_CASE(throw_serialize_test) {
   */
  // test serialize function, should be successful
  BOOST_AUTO_TEST_CASE(serialize_test) {
-    // arrange
+    // arrange, create two AccountManager objects for checking serialize()
     AccountManager accounts;
-    accounts.addAccount("username1");
-    accounts.addAccount("username2");
-    accounts.addAccount("username3");
     AccountManager expected_accounts;
-    expected_accounts.addAccount("username1");
-    expected_accounts.addAccount("username2");
-    expected_accounts.addAccount("username3");
+    for (int i = 1; i < 4; i++) { // loop through and add equivalent accounts to each
+        std::string num = std::to_string(i);
+        accounts.addAccount("username" + num);
+        expected_accounts.addAccount("username" + num);
+    }
 
-    // act
+    // act - serialize and deserialize
     accounts.serialize("test_file.txt");
     accounts.deserialize("test_file.txt"); // get information back
     
-    // assert
+    // assert, make sure the deserialized accounts are equivalent to the expected accounts
     for (int i = 1; i < accounts.getNumAccounts(); i++) {
         std::string num = std::to_string(i);
         BOOST_CHECK_EQUAL(accounts.displayAccount("username" + num), expected_accounts.displayAccount("username" + num));

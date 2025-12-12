@@ -156,7 +156,7 @@
                 BankAccount* account = it->second; // get the account 
                 std::string serialized_account = account->serialize(it->first); // serialize account with username
                 // write to file
-                outfile << serialized_account << '\n' << std::endl;
+                outfile << serialized_account << std::endl;
             }
 
             // close file
