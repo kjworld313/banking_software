@@ -347,4 +347,30 @@ BOOST_AUTO_TEST_CASE(deserialize_overwrite_accounts) {
     std::remove(filename.c_str());
 }
 
+// invalid lines deserialize test
+/*
+ * Lines Covered: 186, 187, 194, 195, 230
+ * Branches Covered: 186T, 194T
+ */
+BOOST_AUTO_TEST_CASE(deserialize_invalid_lines_test) {
+    std::string filename = "bad_deserialize.txt";
+    {
+        std::ofstream out(filename);
+        out << "\n";                                  // empty line
+        out << "Bankaccount,user,A,B,100\n";          // invalid account type
+        out << "Checking,user,A\n";                   // incomplete line
+    }
+
+    AccountManager mgr;
+
+    // act, deserialize should skip invalid lines
+    mgr.deserialize(filename);
+
+    // assert, no accounts were created
+    BOOST_CHECK_EQUAL(mgr.getNumAccounts(), 0);
+
+    // clean up temporary file
+    std::remove(filename.c_str());
+}
+
 BOOST_AUTO_TEST_SUITE_END()
