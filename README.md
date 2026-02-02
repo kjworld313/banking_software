@@ -18,6 +18,6 @@ To test this program, make a 'build' directory in the root of the project, move 
 ./test/bank_account_tests <<< "Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Lucy Blaney 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 Riley Puppy 2 Kj World 1 0.2 Riley Puppy 2 Kj World 2 User One 2 User Two 2 User Three 2 User Four 2 John Doe 2 User One 2 User One 2 User Two 2 User Two 2 User Three 1 0.01 User Three 1 0.01 Lucy Blaney 2"
 
 ## Authors and acknowledgment
-Contributors: Nima Dahir, Katelynn Olson, Omar Segura, Lucy Blaney
+Contributors: Professor Will Leeson, [Nima Dahir](https://github.com/nimadahir), Katelynn Olson, [Omar Segura](https://github.com/OS-G5), [Lucy Blaney](https://github.com/LucyBlaney)
 
 Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
