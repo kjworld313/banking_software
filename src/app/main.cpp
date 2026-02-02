@@ -16,7 +16,7 @@ int main(){
 
     // deserialize if file exists
     try {
-        accounts.deserialize("..src/accounts.csv");
+        accounts.deserialize("../src/accounts.csv");
     }
     catch (const std::exception &e) {
         errorMessage(e.what());
